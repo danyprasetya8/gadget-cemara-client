@@ -2,31 +2,34 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const isDevelopment = process.env.NODE_ENV === 'development'
+const logger = require('webpack-log')({ name: 'webpack-logger' })
+const isDevelopment = process.env.NODE_ENV === 'development' || process.env.NOMOCK !== 'true'
+
+const resolve = dir => {
+  return path.join(__dirname, dir)
+}
 
 module.exports = {
   entry: '@/index.js',
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: resolve(__dirname, '/dist'),
     filename: 'app.js'
   },
   resolve: {
     alias: {
-      '@': path.join(__dirname, './src')
+      '@': resolve('./src'),
+      '@api-mock': isDevelopment ? resolve('./src/api-mock') : resolve('./src/empty'),
+      'axios-mock-adapter': isDevelopment ? 'axios-mock-adapter/dist/axios-mock-adapter.min.js' : resolve('./src/empty')
     },
     extensions: ['.js', '.jsx', '.scss']
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
-      // {
-      //   test: /\.scss$/,
-      //   use: ['style-loader', 'css-loader', 'sass-loader']
-      // }
       {
         test: /\.module\.s[a|c]ss$/,
         loader: [
