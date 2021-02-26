@@ -1,19 +1,7 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
-const mockData = [
-  {
-    method: 'GET',
-    url: '/user',
-    response: {
-      code: 200,
-      status: 'OK',
-      data: {
-        test: 'hello from user'
-      }
-    }
-  }
-]
+const mockData = []
 
 const mock = new MockAdapter(axios)
 const methodMap = {
