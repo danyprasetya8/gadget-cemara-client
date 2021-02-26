@@ -31,23 +31,8 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.module\.s[a|c]ss$/,
-        loader: [
-          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              sourceMap: isDevelopment
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: isDevelopment
-            }
-          }
-        ]
+        test: /\.(png|jpg|gif|svg)$/i,
+        use: ['url-loader']
       },
       {
         test: /\.s(a|c)ss$/,
@@ -58,7 +43,8 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: isDevelopment
+              sourceMap: isDevelopment,
+              additionalData: '@import "~@/assets/scss/main.scss";'
             }
           }
         ]

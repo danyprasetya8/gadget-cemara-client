@@ -1,0 +1,11 @@
+@mixin mobile {
+  @media screen and (max-width: $break-point - 1px) {
+    @content
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $break-point) {
+    @content
+  }
+}
