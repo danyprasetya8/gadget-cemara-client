@@ -14,6 +14,7 @@ const App = () => (
               key={name}
               path={path}
               component={component}
+              exact={path === '/'}
             />
           ))
         }

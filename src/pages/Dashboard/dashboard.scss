@@ -1,0 +1,47 @@
+.dashboard {
+  position: relative;
+
+  .product-list-container,
+  .best-seller-container,
+  .trusted-reviews-container {
+    padding: 16px 0 16px 16px;
+
+    > h1 {
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 20px;
+      margin: 0 0 14px;
+    }
+
+    .product-list,
+    .best-seller,
+    .trusted-reviews {
+      width: 100%;
+      overflow-x: scroll;
+      display: flex;
+      padding: 0 0 16px;
+  
+      &::-webkit-scrollbar {
+        display: none;
+      }
+  
+      &__wrapper {
+        display: flex;
+  
+        > * {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .message-buble {
+    position: fixed;
+    right: 10px;
+    bottom: 90px;
+    z-index: 2;
+  }
+  
+  .dummy {
+    width: 100vw;
+  }
+}

@@ -1,5 +1,8 @@
 export default {
   page: {
-    dashboard: '/'
+    dashboard: '/',
+    article: '/article',
+    notification: '/notification',
+    profile: '/profile'
   }
 }
