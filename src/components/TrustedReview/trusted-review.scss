@@ -1,0 +1,96 @@
+.trusted-review {
+  border-radius: 20px;
+  box-shadow: 4px 4px 12px -11px rgba(0,0,0,0.31);
+  width: 330px;
+  border: 1px solid $grey-1;
+
+  > h1 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 20px;
+    margin: 0 0 14px;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    margin: 0 0 12px;
+
+    > img {
+      margin-right: 12px;
+    }
+  }
+
+  &__user-info {
+    &--time {
+      margin: 4px 0 0;
+      color: $grey-2;
+    }
+  }
+
+  &__product {
+    border-radius: 10px;
+    border: 1px solid $grey-1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__product-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  &__product-info {
+    display: grid;
+    grid-template-areas:
+      'name  rating'
+      'price price';
+    gap: 4px;
+
+    &--name {
+      grid-area: name;
+      font-size: 1.2rem;
+      text-overflow: ellipsis;
+    }
+
+    &--rating {
+      grid-area: rating;
+      color: $grey-2;
+      display: flex;
+      align-items: center;
+      margin: -5px 0 0;
+
+      > span {
+        margin: 2px 0 0;
+      }
+    }
+
+    &--price {
+      color: $green-2;
+      font-size: 1.2rem;
+    }
+  }
+
+  &__product-discount {
+    &--label {
+      background: $red-1;
+      color: $red-2;
+      border-radius: 12px;
+      padding: 2px 6px;
+      white-space: nowrap;
+      margin: 0 0 4px;
+    }
+
+    &--bf-price {
+      color: $grey-2;
+      text-decoration: line-through;
+    }
+  }
+
+  &__my-rating {
+    p {
+      font-size: 1.3rem;
+      line-height: 1.8rem;
+    }
+  }
+}

@@ -13,7 +13,8 @@ module.exports = {
   entry: '@/index.js',
   output: {
     path: resolve(__dirname, '/dist'),
-    filename: 'app.js'
+    filename: 'app.js',
+    publicPath: '/'
   },
   resolve: {
     alias: {
@@ -36,7 +37,6 @@ module.exports = {
       },
       {
         test: /\.s(a|c)ss$/,
-        exclude: /\.module.(s(a|c)ss)$/,
         loader: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
@@ -48,7 +48,14 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.css/,
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
+      },
     ]
   },
   plugins: [
