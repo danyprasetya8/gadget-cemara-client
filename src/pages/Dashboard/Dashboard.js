@@ -25,6 +25,7 @@ class Dashboard extends Component {
                 naturalSlideWidth={100}
                 naturalSlideHeight={85}
                 totalSlides={3}
+                className="carousel-container"
               >
                 <Slider>
                   <Slide index={0}>
