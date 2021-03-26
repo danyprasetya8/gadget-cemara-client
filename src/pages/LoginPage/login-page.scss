@@ -1,0 +1,94 @@
+.login-page {
+  height: 100vh;
+
+  .logo {
+    text-align: center;
+
+    > img {
+      width: 10rem;
+      height: 10rem;
+    }
+
+    > div {
+      font-family: 'Comfortaa', sans-serif;
+      color: $green-3;
+      font-weight: 800;
+      font-size: 1.8rem;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+
+    > * {
+      margin: 0 0 8px;
+    }
+
+    > input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid $grey-1;
+      border-radius: 8px;
+      box-sizing: border-box;
+
+      &::placeholder {
+        color: $grey-1;
+        opacity: 1;
+      }
+    }
+
+    .input-error {
+      border: 1px solid $red-3;
+    }
+
+    &__error {
+      color: $red-3;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    > button {
+      width: 100%;
+      background-color: $green-2;
+      color: white;
+      padding: 14px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 4px 4px 18px -11px rgba(0,0,0,0.31);
+    }
+
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__forgot-pass {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: $green-2;
+      text-align: right;
+      text-decoration: none;
+    }
+
+    &__no-account {
+      font-size: 1.4rem;
+      text-align: center;
+      background: rgba($color: $green-1, $alpha: .3);
+      padding: 16px;
+
+      &--register {
+        text-decoration: none;
+        color: $green-2;
+      }
+    }
+
+    &__error-message {
+      font-size: 1.3rem;
+      text-align: center;
+      background-color: $red-1;
+      margin-top: 12px;
+    }
+  }
+}

@@ -16,7 +16,9 @@ const TheHeader = props => {
 
   return (
     <div className={classList.join(' ')}>
-      <LogoSecondary fill={shouldSticking ? '#DADADA' : '#FFF'} />
+      <div className="icon">
+        <LogoSecondary fill={shouldSticking ? '#DADADA' : '#FFF'} />
+      </div>
       <div className="search-bar">
         <img src={magnifier} />
         <input type="text"/>

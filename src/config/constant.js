@@ -3,6 +3,8 @@ export default {
     dashboard: '/',
     article: '/article',
     notification: '/notification',
-    profile: '/profile'
+    profile: '/profile',
+    login: '/login',
+    register: '/register'
   }
 }
