@@ -17,25 +17,33 @@ const navigationList = [
     icon: home,
     activeIcon: homeActive,
     text: 'Home',
-    path: config.page.dashboard
+    path: config.page.dashboard,
+    active: [config.page.dashboard]
   },
   {
     icon: article,
     activeIcon: articleActive,
     text: 'Article',
-    path: config.page.article
+    path: config.page.article,
+    active: [config.page.article]
   },
   {
     icon: bell,
     activeIcon: bellActive,
     text: 'Notification',
-    path: config.page.notification
+    path: config.page.notification,
+    active: [config.page.notification]
   },
   {
     icon: user,
     activeIcon: userActive,
     text: 'Profile',
-    path: config.page.profile
+    path: config.page.profile,
+    active: [
+      config.page.profile,
+      config.page.login,
+      config.page.register
+    ]
   }
 ]
 
@@ -56,12 +64,12 @@ const BottomNavigation = () => {
             onClick={() => navigateTo(navigator.path)}
           >
             <img src={
-              useLocation().pathname === navigator.path
+               navigator.active.includes(useLocation().pathname)
                 ? navigator.activeIcon
                 : navigator.icon
             } />
             <small style={{
-              color: useLocation().pathname === navigator.path
+              color: navigator.active.includes(useLocation().pathname)
               ? '#55C595'
               : '#9A9898'
             }}>

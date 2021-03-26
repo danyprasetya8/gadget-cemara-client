@@ -16,6 +16,15 @@ module.exports = {
     filename: 'app.js',
     publicPath: '/'
   },
+  devServer: {
+    historyApiFallback: true,
+    proxy: {
+      '/backend/': {
+        target: 'http://localhost:8081',
+        changeOrigin: true
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': resolve('./src'),

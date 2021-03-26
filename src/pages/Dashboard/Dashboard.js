@@ -1,4 +1,5 @@
 import { CarouselProvider, Slider, Slide, Image } from 'pure-react-carousel'
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import TheHeader from '@/components/TheHeader/TheHeader'
 import HeaderObserver from '@/components/HeaderObserver/HeaderObserver'
@@ -90,4 +91,8 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Dashboard)

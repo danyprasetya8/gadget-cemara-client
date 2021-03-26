@@ -16,8 +16,16 @@ class App extends Component {
     window.addEventListener('resize', this.setDeviceType)
   }
 
+  initUser = () => {
+    const { currentUser, getCurrentUser } = this.props
+    if (!currentUser.init) {
+      getCurrentUser()
+    }
+  }
+
   componentDidMount() {
     this.handleResizeEvent()
+    this.initUser()
   }
 
   render() {
@@ -43,11 +51,13 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  isMobile: state.main.isMobile
+  isMobile: state.main.isMobile,
+  currentUser: state.user.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
-  setIsMobile: value => dispatch(actionCreators.setIsMobile(value))
+  setIsMobile: payload => dispatch(actionCreators.setIsMobile(payload)),
+  getCurrentUser: payload => dispatch(actionCreators.getCurrentUser(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
