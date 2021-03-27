@@ -36,9 +36,10 @@ const profileTabList = [
   }
 ]
 
-const Profile = () => {
+const Profile = props => {
   const [activeTab, setActiveTab] = useState('order')
   const history = useHistory()
+  const name = props.currentUser.name
 
   const toEditPage = () => {
     history.push(page.editProfile)
@@ -59,7 +60,7 @@ const Profile = () => {
         <div className="profile-page__user">
           <img src={male} />
           <div>
-            <strong>Novia Tanasia</strong>
+            <strong>{name}</strong>
             <button onClick={toEditPage}>
               Edit Profile
             </button>
