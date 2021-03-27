@@ -39,11 +39,7 @@ const navigationList = [
     activeIcon: userActive,
     text: 'Profile',
     path: config.page.profile,
-    active: [
-      config.page.profile,
-      config.page.login,
-      config.page.register
-    ]
+    active: [config.page.profile]
   }
 ]
 

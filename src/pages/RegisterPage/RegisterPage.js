@@ -19,6 +19,12 @@ const formList = [
     type: 'text'
   },
   {
+    name: 'name',
+    title: 'Name',
+    placeholder: 'Input name',
+    type: 'text'
+  },
+  {
     name: 'password',
     title: 'Password',
     placeholder: 'Input password',
@@ -44,12 +50,14 @@ class RegisterPage extends Component {
     this.state = {
       form: {
         email: '',
+        name: '',
         password: '',
         rePassword: '',
         address: ''
       },
       error: {
         email: [],
+        name: [],
         password: [],
         rePassword: [],
         address: []
@@ -68,9 +76,10 @@ class RegisterPage extends Component {
   }
 
   validateForm = () => {
-    const { email, password, rePassword, address } = this.state.form
+    const { email, name, password, rePassword, address } = this.state.form
     const error = {
       email: [],
+      name: [],
       password: [],
       rePassword: [],
       address: []
@@ -81,6 +90,9 @@ class RegisterPage extends Component {
     }
     if (!isEmail(email)) {
       error.email = [...error.email, 'Wrong email format']
+    }
+    if (!name.length) {
+      error.name = [...error.name, 'Must be filled']
     }
     if (password.length < 6) {
       error.password = [...error.password, 'Password must be minimal 6 characters']

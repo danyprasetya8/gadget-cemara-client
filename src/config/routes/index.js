@@ -1,42 +1,56 @@
 import Dashboard from '@/pages/Dashboard/Dashboard'
 import Article from '@/pages/Article/Article'
 import Notification from '@/pages/Notification/Notification'
-import Profile from '@/pages/Profile/Profile'
+import ProfilePage from '@/pages/ProfilePage/ProfilePage'
 import LoginPage from '@/pages/LoginPage/LoginPage'
 import RegisterPage from '@/pages/RegisterPage/RegisterPage'
+import EditProfile from '@/pages/EditProfile/EditProfile'
 import config from '@/config/constant'
 
 const page = config.page
+const { USER, ADMIN } = config.role
 
 export default [
   {
     name: 'Dashboard',
     path: page.dashboard,
-    component: Dashboard
+    component: Dashboard,
+    roles: []
   },
   {
     name: 'Article',
     path: page.article,
-    component: Article
+    component: Article,
+    roles: []
   },
   {
     name: 'Notification',
     path: page.notification,
-    component: Notification
+    component: Notification,
+    roles: [USER]
   },
   {
     name: 'Profile',
     path: page.profile,
-    component: Profile
+    component: ProfilePage,
+    roles: [USER]
   },
   {
     name: 'LoginPage',
     path: page.login,
-    component: LoginPage
+    component: LoginPage,
+    roles: []
   },
   {
     name: 'RegisterPage',
     path: page.register,
-    component: RegisterPage
+    component: RegisterPage,
+    roles: []
+  },
+  {
+    name: 'EditProfile',
+    path: page.editProfile,
+    component: EditProfile,
+    roles: [USER]
   }
 ]

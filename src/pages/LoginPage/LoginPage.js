@@ -74,7 +74,15 @@ class LoginPage extends Component {
   getUser = () => {
     const { getCurrentUser, history } = this.props
     getCurrentUser({
-      onSuccess: () => history.push(page.dashboard)
+      onSuccess: () => {
+        const { search = '' } = this.props.location
+        const query = new URLSearchParams(search)
+        if (query.get('redirect')) {
+          history.push(query.get('redirect'))
+          return
+        }
+        history.push(page.dashboard)
+      }
     })
   }
 
