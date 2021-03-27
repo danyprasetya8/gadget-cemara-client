@@ -31,10 +31,7 @@ export const getCurrentUser = (payload = {}) => dispatch => {
       dispatch(setCurrentUser(res))
       payload.onSuccess && payload.onSuccess(res)
     })
-    .catch(err => {
-      dispatch(setCurrentUser({ init: true }))
-      payload.onFail && payload.onFail(err)
-    })
+    .catch(err => payload.onFail && payload.onFail(err))
 }
 
 export const registerUser = payload => () => {
