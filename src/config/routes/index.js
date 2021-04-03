@@ -5,6 +5,8 @@ import ProfilePage from '@/pages/ProfilePage/ProfilePage'
 import LoginPage from '@/pages/LoginPage/LoginPage'
 import RegisterPage from '@/pages/RegisterPage/RegisterPage'
 import EditProfile from '@/pages/EditProfile/EditProfile'
+import EditAddress from '@/pages/EditAddress/EditAddress'
+import CreateAddress from '@/pages/CreateAddress/CreateAddress'
 import config from '@/config/constant'
 
 const page = config.page
@@ -15,6 +17,7 @@ export default [
     name: 'Dashboard',
     path: page.dashboard,
     component: Dashboard,
+    exact: true,
     roles: []
   },
   {
@@ -33,6 +36,7 @@ export default [
     name: 'Profile',
     path: page.profile,
     component: ProfilePage,
+    exact: true,
     roles: [USER]
   },
   {
@@ -51,6 +55,18 @@ export default [
     name: 'EditProfile',
     path: page.editProfile,
     component: EditProfile,
+    roles: [USER]
+  },
+  {
+    name: 'EditAddress',
+    path: page.editAddress,
+    component: EditAddress,
+    roles: [USER]
+  },
+  {
+    name: 'CreateAddress',
+    path: page.createAddress,
+    component: CreateAddress,
     roles: [USER]
   }
 ]

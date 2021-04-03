@@ -37,7 +37,7 @@ const profileTabList = [
 ]
 
 const Profile = props => {
-  const [activeTab, setActiveTab] = useState('order')
+  const [activeTab, setActiveTab] = useState('address')
   const history = useHistory()
   const name = props.currentUser.name
 
@@ -48,7 +48,7 @@ const Profile = props => {
   const getActiveComponent = () => {
     if (activeTab === 'order') return <ProfileOrder />
     if (activeTab === 'wishlist') return <ProfileWishlist />
-    if (activeTab === 'address') return <ProfileAddress />
+    if (activeTab === 'address') return <ProfileAddress history={history} />
     if (activeTab === 'review') return <ProfileReview />
   }
   

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { isEmail } from '@/utils/validation'
 import React, { Component } from 'react'
 import BottomNavigation from '@/components/BottomNavigation/BottomNavigation'
+import FormInput from '@/components/FormInput/FormInput'
 import config from '@/config/constant'
 import logo from '@/assets/images/svg/logo.svg'
 import './login-page.scss'
@@ -14,13 +15,13 @@ const formList = [
   {
     name: 'email',
     title: 'Email',
-    placeholder: 'gadgetcemara@gmail.com',
+    placeholder: 'Tulis email',
     type: 'text'
   },
   {
     name: 'password',
-    title: 'Password',
-    placeholder: 'Input password',
+    title: 'Kata sandi',
+    placeholder: 'Tulis kata sandi',
     type: 'password'
   }
 ]
@@ -41,7 +42,7 @@ class LoginPage extends Component {
     }
   }
 
-  handleInputChange = e => {
+  handleFormInputChange = e => {
     this.setState({
       form: {
         ...this.state.form,
@@ -116,36 +117,8 @@ class LoginPage extends Component {
       .length
   }
 
-  formInputElement = () => {
-    return formList.map(({ title, name, placeholder, type }) => {
-      const { form, error } = this.state
-      return (
-        <React.Fragment key={name}>
-          <div className="form__title">{title}</div>
-          <input
-            type={type}
-            placeholder={placeholder}
-            name={name}
-            value={form[name]}
-            onChange={this.handleInputChange}
-            className={error[name].length ? 'input-error' : ''}
-          />
-          {
-            !!error[name].length && (
-              <div className="form__error">
-                {
-                  error[name].map(err => (<div key={err}>{err}</div>))
-                }
-              </div>
-            )
-          }
-        </React.Fragment>
-      )
-    })
-  }
-
   render() {
-    const { isUnauthorized } = this.state
+    const { isUnauthorized, form, error } = this.state
 
     return (
       <div className="login-page">
@@ -154,32 +127,38 @@ class LoginPage extends Component {
           <div>Gadget Cemara</div>
         </section>
 
-        <form
-          className="form p-16"
+        <FormInput
+          form={form}
+          error={error}
+          formInputList={formList}
           onSubmit={this.login}
-          onKeyUp={e => e.key === 'Enter' && e.preventDefault() && this.login()}
+          handleFormInputChange={this.handleFormInputChange}
         >
-          {this.formInputElement()}
-          <Link className="form__forgot-pass">
-            Forgot password
+          <Link className="login-form__forgot-pass">
+            Lupa kata sandi
           </Link>
-          <button type="submit">Login</button>
+          <button
+            type="submit"
+            className="login-form__btn"
+          >
+            Masuk
+          </button>
           {
             isUnauthorized && (
-              <div className="form__error-message p-8">
-                Wrong username/password
+              <div className="login-form__error-message p-8">
+                Email atau kata sandi Anda salah
               </div>
             )
           }
-        </form>
+        </FormInput>
 
-        <div className="form__no-account">
-          Didn't have an account yet? &nbsp;
+        <div className="login-form__no-account">
+          Belum punya akun? &nbsp;
           <Link
             to={page.register}
-            className="form__no-account--register"
+            className="login-form__no-account--register"
           >
-            Register here
+            Daftar disini
           </Link>
         </div>
 

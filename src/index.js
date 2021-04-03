@@ -5,6 +5,8 @@ import App from '@/App'
 import reduxStore from '@/store'
 
 import 'pure-react-carousel/dist/react-carousel.es.css'
+import 'react-toastify/dist/ReactToastify.css';
+import 'animate.css/animate.min.css';
 
 require('@api-mock')
 

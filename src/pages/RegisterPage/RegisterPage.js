@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { isEmail } from '@/utils/validation'
 import React, { Component } from 'react'
 import BottomNavigation from '@/components/BottomNavigation/BottomNavigation'
+import FormInput from '@/components/FormInput/FormInput'
 import config from '@/config/constant'
 import logo from '@/assets/images/svg/logo.svg'
 
@@ -15,32 +16,39 @@ const formList = [
   {
     name: 'email',
     title: 'Email',
-    placeholder: 'gadgetcemara@gmail.com',
+    placeholder: 'Tulis email',
     type: 'text'
   },
   {
     name: 'name',
-    title: 'Name',
-    placeholder: 'Input name',
+    title: 'Nama',
+    placeholder: 'Tulis nama',
     type: 'text'
   },
   {
     name: 'password',
-    title: 'Password',
-    placeholder: 'Input password',
+    title: 'Kata sandi',
+    placeholder: 'Tulis kata sandi',
     type: 'password'
   },
   {
     name: 'rePassword',
-    title: 'Confirm password',
-    placeholder: 'Re-input password',
+    title: 'Konfirmasi kata sandi',
+    placeholder: 'Tulis kembali kata sandi',
     type: 'password'
   },
   {
     name: 'address',
-    title: 'Address',
-    placeholder: 'Input address',
+    title: 'Alamat',
+    placeholder: 'Tulis alamat',
     type: 'text'
+  },
+  {
+    name: 'phoneNumber',
+    title: 'Nomor telepon',
+    placeholder: 'Tulis nomor telepon',
+    type: 'text',
+    textNumber: true
   }
 ]
 
@@ -53,58 +61,67 @@ class RegisterPage extends Component {
         name: '',
         password: '',
         rePassword: '',
-        address: ''
+        address: '',
+        phoneNumber: ''
       },
       error: {
         email: [],
         name: [],
         password: [],
         rePassword: [],
-        address: []
+        address: [],
+        phoneNumber: []
       },
       isUserAlreadyExist: false
     }
   }
 
-  handleInputChange = e => {
+  handleFormInputChange = (e, name) => {
     this.setState({
       form: {
         ...this.state.form,
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.validity.valid ? e.target.value : this.state.form[name]
       }
     })
   }
 
   validateForm = () => {
-    const { email, name, password, rePassword, address } = this.state.form
+    const { email, name, password, rePassword, address, phoneNumber } = this.state.form
     const error = {
       email: [],
       name: [],
       password: [],
       rePassword: [],
-      address: []
+      address: [],
+      phoneNumber: []
     }
 
     if (!email.length) {
-      error.email = [...error.email, 'Must be filled']
+      error.email = [...error.email, 'Harus diisi']
     }
     if (!isEmail(email)) {
-      error.email = [...error.email, 'Wrong email format']
+      error.email = [...error.email, 'Format email salah']
     }
     if (!name.length) {
-      error.name = [...error.name, 'Must be filled']
+      error.name = [...error.name, 'Harus diisi']
     }
     if (password.length < 6) {
-      error.password = [...error.password, 'Password must be minimal 6 characters']
+      error.password = [...error.password, 'Kata sandi minimal 6 karakter']
     }
     if (!rePassword.length) {
-      error.rePassword = [...error.rePassword, 'Must be filled']
+      error.rePassword = [...error.rePassword, 'Harus diisi']
     }
     if (password !== rePassword) {
-      error.rePassword = [...error.rePassword, 'Password not match']
+      error.rePassword = [...error.rePassword, 'Kata sandi tidak sesuai']
     }
     if (!address.length) {
-      error.address = [...error.address, 'Must be filled']
+      error.address = [...error.address, 'Harus diisi']
+    }
+    if (!phoneNumber.length) {
+      error.phoneNumber = [...error.phoneNumber, 'Harus diisi']
+    }
+    if (phoneNumber.length < 8) {
+      error.phoneNumber = [...error.phoneNumber, 'Format nomor telepon salah']
     }
 
     this.setState({ error }, () => {
@@ -138,36 +155,8 @@ class RegisterPage extends Component {
     })
   }
 
-  formInputElement = () => {
-    return formList.map(({ title, name, placeholder, type }) => {
-      const { form, error } = this.state
-      return (
-        <React.Fragment key={name}>
-          <div className="form__title">{title}</div>
-          <input
-            type={type}
-            placeholder={placeholder}
-            name={name}
-            value={form[name]}
-            onChange={this.handleInputChange}
-            className={error[name].length ? 'input-error' : ''}
-          />
-          {
-            !!error[name].length && (
-              <div className="form__error">
-                {
-                  error[name].map(err => (<div key={err}>{err}</div>))
-                }
-              </div>
-            )
-          }
-        </React.Fragment>
-      )
-    })
-  }
-
   render() {
-    const { isUserAlreadyExist } = this.state
+    const { isUserAlreadyExist, form, error } = this.state
 
     return (
       <div className="register-page">
@@ -176,29 +165,35 @@ class RegisterPage extends Component {
           <div>Gadget Cemara</div>
         </section>
 
-        <form
-          className="form p-16"
+        <FormInput
+          form={form}
+          error={error}
+          formInputList={formList}
           onSubmit={this.register}
-          onKeyUp={e => e.key === 'Enter' && e.preventDefault() && this.register()}
+          handleFormInputChange={this.handleFormInputChange}
         >
-          {this.formInputElement()}
-          <button type="submit">Register</button>
+          <button
+            type="submit"
+            className="register-form__btn"
+          >
+              Daftar
+          </button>
           {
             isUserAlreadyExist && (
-              <div className="form__error-message p-8">
-                There's already a user registered with this email
+              <div className="register-form__error-message p-8">
+                User dengan email ini telah terdaftar
               </div>
             )
           }
-        </form>
+        </FormInput>
 
-        <div className="form__have-account">
-          Already have an account? &nbsp;
+        <div className="register-form__have-account">
+          Sudah punya akun? &nbsp;
           <Link
             to={page.login}
-            className="form__have-account--login"
+            className="register-form__have-account--login"
           >
-            Login here
+            Masuk disini
           </Link>
         </div>
 

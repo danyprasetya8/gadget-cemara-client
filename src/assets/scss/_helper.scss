@@ -93,3 +93,17 @@
 .fs-24 { font-size: 24px };
 .fs-32 { font-size: 32px };
 .fs-40 { font-size: 40px };
+
+.toast-container {
+  .Toastify__toast {
+    min-height: 0;
+    padding: 4px;
+    background: #D31244;
+    border-radius: 0;
+  }
+}
+
+.error-toaster {
+  padding: 3px;
+  font-size: 1.3rem;
+}

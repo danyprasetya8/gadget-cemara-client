@@ -1,0 +1,20 @@
+
+@mixin btn-primary {
+  width: 100%;
+  background-color: $green-2;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 4px 4px 18px -11px rgba(0,0,0,0.31);
+}
+
+@mixin btn-secondary {
+  width: 100%;
+  background-color: #fff;
+  color: $green-2;
+  border: 1px solid $green-2;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 4px 4px 18px -11px rgba(0,0,0,0.31);
+}
