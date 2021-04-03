@@ -95,7 +95,7 @@ class ProfileAddress extends Component {
                     Ubah
                   </Link>
                   {
-                    !!userAddress.length > 1 && !userAddress.primary && (
+                    userAddress.length > 1 && !address.primary && (
                       <div onClick={() => this.toggleDeleteAddressModal(address.id)}>
                         Hapus
                       </div>
