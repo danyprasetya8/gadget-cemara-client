@@ -35,15 +35,17 @@ class App extends Component {
         <div className="App">
           <Switch>
             {
-              routes.map(({ name, path, component, roles }) => (
-                <RouteGuard
-                  key={name}
-                  path={path}
-                  component={component}
-                  exact={path === '/'}
-                  routeRoles={roles}
-                />
-              ))
+              routes.map(({ name, path, component, roles, exact = false }) => {
+                return (
+                  <RouteGuard
+                    key={name}
+                    path={path}
+                    component={component}
+                    exact={exact}
+                    routeRoles={roles}
+                  />
+                )
+              })
             }
           </Switch>
         </div>
