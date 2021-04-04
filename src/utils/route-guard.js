@@ -11,6 +11,8 @@ const RouteGuard = ({ component: Component, routeRoles, path, ...rest }) => {
 
   const guestAccessProtectedRoute = !currentUser.roles && routeRoles.length
   const userDontHaveAuthority = routeRoles.length && currentUser.roles && currentUser.roles.length && !arrayContainAny(routeRoles, currentUser.roles)
+  const userIsLoggedIn = currentUser && currentUser.email && currentUser.roles.length
+  const loggedInUserAccessBlacklistedPath = userIsLoggedIn && config.app.userLoggedInBlacklistedPath.includes(path)
 
   const parentProps = {
     ...rest,
@@ -28,6 +30,10 @@ const RouteGuard = ({ component: Component, routeRoles, path, ...rest }) => {
           pathname: config.page.login,
           search: `?redirect=${encodeURIComponent(path)}`
         }}/>
+      }
+
+      if (loggedInUserAccessBlacklistedPath) {
+        return <Redirect to={config.page.dashboard} />
       }
 
       return <Component {...props} />

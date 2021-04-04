@@ -30,6 +30,10 @@ export default {
       closeButton: false,
       type: toast.TYPE.DARK,
       transition: Fade
-    }
+    },
+    userLoggedInBlacklistedPath: [
+      '/login',
+      '/register'
+    ]
   }
 }
