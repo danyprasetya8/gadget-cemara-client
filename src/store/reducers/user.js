@@ -3,7 +3,8 @@ import * as actionTypes from '@/config/action-types'
 const initialState = {
   currentUser: {
     init: false
-  }
+  },
+  isGettingUser: true
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: data
+      }
+    }
+    case actionTypes.SET_GETTING_USER: {
+      return {
+        ...state,
+        isGettingUser: action.value
       }
     }
   } 
