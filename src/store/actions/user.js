@@ -25,13 +25,24 @@ const setCurrentUser = value => ({
   value
 })
 
+const setGettingUser = value => ({
+  type: actionTypes.SET_GETTING_USER,
+  value
+})
+
 export const getCurrentUser = (payload = {}) => dispatch => {
+  dispatch(setGettingUser(true))
   axios.get(api.user)
     .then(res => {
       dispatch(setCurrentUser(res))
+      dispatch(setGettingUser(false))
       payload.onSuccess && payload.onSuccess(res)
     })
-    .catch(err => payload.onFail && payload.onFail(err))
+    .catch(err => {
+      dispatch(setCurrentUser({}))
+      dispatch(setGettingUser(false))
+      payload.onFail && payload.onFail(err)
+    })
 }
 
 export const registerUser = payload => () => {

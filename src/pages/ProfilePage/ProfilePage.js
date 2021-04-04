@@ -55,7 +55,7 @@ const Profile = props => {
   return (
     <div className="profile-page">
       <section className="p-16">
-        <h1 className="mb-18">My Profile</h1>
+        <h1 className="mb-18">Profil</h1>
 
         <div className="profile-page__user">
           <img src={male} />

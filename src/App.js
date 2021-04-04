@@ -35,7 +35,7 @@ class App extends Component {
         <div className="App">
           <Switch>
             {
-              routes.map(({ name, path, component, roles, exact = false }) => {
+              !this.props.isGettingUser && routes.map(({ name, path, component, roles, exact = false }) => {
                 return (
                   <RouteGuard
                     key={name}
@@ -56,7 +56,8 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   isMobile: state.main.isMobile,
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
+  isGettingUser: state.user.isGettingUser
 })
 
 const mapDispatchToProps = dispatch => ({

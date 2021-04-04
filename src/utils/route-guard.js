@@ -5,7 +5,7 @@ import PageNotFound from '@/components/PageNotFound/PageNotFound'
 import config from '@/config/constant'
 import store from '@/store'
 
-const RouteGuard = ({ component: Component, caller, routeRoles, path, ...rest }) => {
+const RouteGuard = ({ component: Component, routeRoles, path, ...rest }) => {
   const { user = {} } = store.getState()
   const { currentUser = {} } = user
 
