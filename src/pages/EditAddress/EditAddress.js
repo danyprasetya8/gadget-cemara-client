@@ -141,7 +141,7 @@ class EditAddress extends Component {
     this.props.updateUserAddress({
       form: { ...form, id: this.props.location.addressId },
       onSuccess: () => this.props.getUserAddress({
-        onSuccess: () => this.props.history.push(page.profile)
+        onSuccess: () => this.props.history.push(page.profileAddress)
       }),
       onFail: () => toast(() => <div className="error-toaster">Terjadi kesalahan pada sistem, silahkan coba lagi</div>, config.app.errorToastOpt)
     })

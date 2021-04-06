@@ -121,7 +121,7 @@ class CreateAddress extends Component {
     this.props.saveUserAddress({
       form,
       onSuccess: () => this.props.getUserAddress({
-        onSuccess: () => this.props.history.push(page.profile)
+        onSuccess: () => this.props.history.push(page.profileAddress)
       }),
       onFail: () => toast(() => <div className="error-toaster">Terjadi kesalahan pada sistem, silahkan coba lagi</div>, config.app.errorToastOpt)
     })

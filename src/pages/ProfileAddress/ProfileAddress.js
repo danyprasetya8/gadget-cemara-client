@@ -132,16 +132,16 @@ class ProfileAddress extends Component {
                   onClick={this.toggleDeleteAddressModal}
                 />
                 <div className="modal-body">
-                  <h1>Delete address</h1>
+                  <h1>Hapus alamat</h1>
                   <p>
-                    Deleted address can't be reverted
+                    Yakin hapus alamat ini?
                   </p>
                   <div>
                     <button onClick={this.toggleDeleteAddressModal}>
-                      Back
+                      Kembali
                     </button>
                     <button onClick={() => this.deleteAddress()}>
-                      Delete
+                      Hapus
                     </button>
                   </div>
                 </div>
