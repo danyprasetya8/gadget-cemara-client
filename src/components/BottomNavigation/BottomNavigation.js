@@ -38,8 +38,14 @@ const navigationList = [
     icon: user,
     activeIcon: userActive,
     text: 'Profile',
-    path: config.page.profile,
-    active: [config.page.profile]
+    path: config.page.profileOrder,
+    active: [
+      config.page.profile,
+      config.page.profileOrder,
+      config.page.profileWishlist,
+      config.page.profileAddress,
+      config.page.profileReview,
+    ]
   }
 ]
 

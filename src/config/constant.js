@@ -15,8 +15,12 @@ export default {
     editProfile: '/edit-profile',
     login: '/login',
     register: '/register',
-    editAddress: '/profile/address/edit',
-    createAddress: '/profile/address/create'
+    profileOrder: '/profile/order',
+    profileWishlist: '/profile/wishlist',
+    profileAddress: '/profile/address',
+    profileReview: '/profile/review',
+    editAddress: '/address/edit',
+    createAddress: '/address/create',
   },
   role: {
     USER: 'ROLE_USER',

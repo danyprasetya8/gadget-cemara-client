@@ -36,7 +36,6 @@ export default [
     name: 'Profile',
     path: page.profile,
     component: ProfilePage,
-    exact: true,
     roles: [USER]
   },
   {

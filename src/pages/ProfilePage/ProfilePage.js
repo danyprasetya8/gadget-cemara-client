@@ -1,13 +1,11 @@
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Link , useHistory, useLocation } from 'react-router-dom'
 import React, { useState } from 'react'
 import BottomNavigation from '@/components/BottomNavigation/BottomNavigation'
-import ProfileOrder from '@/components/ProfileOrder/ProfileOrder'
-import ProfileWishlist from '@/components/ProfileWishlist/ProfileWishlist'
-import ProfileAddress from '@/components/ProfileAddress/ProfileAddress'
-import ProfileReview from '@/components/ProfileReview/ProfileReview'
+import RouteGuard from '@/utils/route-guard'
 import male from '@/assets/images/svg/male.svg'
 import config from '@/config/constant'
+import profileRoutes from '@/config/routes/profile-page-routes'
 
 import './profile-page.scss'
 
@@ -16,40 +14,37 @@ const page = config.page
 const profileTabList = [
   {
     name: 'order',
-    title: 'My Orders',
-    path: page.order
+    title: 'Pesanan',
+    path: page.profileOrder
   },
   {
     name: 'wishlist',
     title: 'Wishlist',
-    path: page.wishlist
+    path: page.profileWishlist
   },
   {
     name: 'address',
-    title: 'Address',
-    path: page.address
+    title: 'Alamat',
+    path: page.profileAddress
   },
   {
     name: 'review',
-    title: 'Reviews',
-    path: page.review
+    title: 'Ulasan',
+    path: page.profileReview
   }
 ]
 
 const Profile = props => {
-  const [activeTab, setActiveTab] = useState('address')
   const history = useHistory()
+  const { pathname } = useLocation()
   const name = props.currentUser.name
 
   const toEditPage = () => {
     history.push(page.editProfile)
   }
 
-  const getActiveComponent = () => {
-    if (activeTab === 'order') return <ProfileOrder />
-    if (activeTab === 'wishlist') return <ProfileWishlist />
-    if (activeTab === 'address') return <ProfileAddress history={history} />
-    if (activeTab === 'review') return <ProfileReview />
+  const isActiveTab = selectedPathName => {
+    return pathname.indexOf(selectedPathName) > -1
   }
   
   return (
@@ -73,21 +68,35 @@ const Profile = props => {
           profileTabList.map(tab => {
             const classList = [
               'profile-navigation__tab-item',
-              activeTab === tab.name ? 'active' : ''
+              isActiveTab(tab.name) ? 'active' : ''
             ]
             return (
-              <div
+              <Link
                 key={tab.name}
                 className={classList.join(' ')}
-                onClick={() => setActiveTab(tab.name)}
+                to={tab.path}
               >
                 {tab.title}
-              </div>
+              </Link>
             )
           })
         }
       </section>
-      {getActiveComponent()}
+      <Switch>
+        {
+          profileRoutes.map(({ name, path, component, roles, exact = false }) => {
+            return (
+              <RouteGuard
+                key={name}
+                path={path}
+                component={component}
+                exact={exact}
+                routeRoles={roles}
+              />
+            )
+          })
+        }
+      </Switch>
       <BottomNavigation />
     </div>
   )
