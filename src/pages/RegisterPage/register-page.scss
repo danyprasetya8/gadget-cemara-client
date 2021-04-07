@@ -38,7 +38,7 @@
     }
 
     &__btn {
-      @include btn-primary;
+      @include gc-btn-primary;
       padding: 14px;
       margin: 8px 0;
     }

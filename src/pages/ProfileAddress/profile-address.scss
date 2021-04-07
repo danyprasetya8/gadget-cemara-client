@@ -75,7 +75,7 @@
   }
 
   > .add-address-btn {
-    @include btn-secondary;
+    @include gc-btn-secondary;
     width: 75%;
     padding: 8px 14px;
     margin-top: 12px;
@@ -126,13 +126,13 @@
       
       > button {
         &:first-child {
-          @include btn-secondary;
+          @include gc-btn-secondary;
           padding: 8px 14px;
           margin-right: 12px;
         }
 
         &:nth-child(2) {
-          @include btn-primary;
+          @include gc-btn-primary;
           padding: 8px 14px;
         }
       }
