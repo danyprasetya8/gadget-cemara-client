@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import './form-input.scss'
-
+import Dropdown from '@UI/Dropdown/Dropdown'
 class FormInput extends Component {
   constructor(props) {
     super(props)

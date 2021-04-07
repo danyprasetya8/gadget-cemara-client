@@ -1,0 +1,22 @@
+.Input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid $grey-1;
+  border-radius: 8px;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: $grey-1;
+    opacity: 1;
+  }
+
+  &__error {
+    border: 1px solid $red-3; 
+  }
+
+  &__error-msg {
+    color: $red-3;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+}
