@@ -5,7 +5,7 @@
   .address-card {
     background: #fff;
     padding: 12px;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     margin-bottom: 8px;
     border-bottom: 1px solid $grey-1;
 
@@ -38,38 +38,34 @@
       padding: 4px 6px;
       border-radius: 12px;
     }
-  
-    > * {
-      margin-bottom: 6px;
-    }
 
     &__action-container {
       display: flex;
+      align-items: center;
       margin-top: 12px;
       text-decoration: none;
-      color: $green-2;
+      color: $grey-2;
 
       .link {
         text-decoration: none;
-        color: $green-2;
+        color: $grey-2;
       }
 
       > * {
-        margin-right: 10px;
         display: flex;
         align-items: center;
-
-        &:not(:last-child) {
-          &::after {
-            content: '|';
-            color: $grey-2;
-            margin-left: 10px;
-          }
-        }
+        margin-right: 20px;
+        white-space: nowrap;
       }
 
       .icon {
         margin-right: 4px;
+      }
+
+      &--switch {
+        > div {
+          margin-left: 4px;
+        }
       }
     }
   }
@@ -105,7 +101,7 @@
   .modal-body {
     position: absolute;
     padding: 20px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -115,25 +111,35 @@
     display: flex;
     flex-direction: column;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > img {
+      width: 137px;
+      height: 96px;
+    }
 
     > p {
       margin: 12px 0;
     }
 
     > div {
-      margin-left: auto;
       display: flex;
+      width: 100%;
       
       > button {
+        width: 50%;
+
         &:first-child {
           @include gc-btn-secondary;
-          padding: 8px 14px;
-          margin-right: 12px;
+          padding: 6px 12px;
+          margin-right: 18px;
         }
 
         &:nth-child(2) {
           @include gc-btn-primary;
-          padding: 8px 14px;
+          padding: 6px 12px;
         }
       }
     }

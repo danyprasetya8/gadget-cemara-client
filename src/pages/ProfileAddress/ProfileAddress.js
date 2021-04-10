@@ -1,9 +1,13 @@
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer, toast } from 'react-toastify';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actionCreators from '@/store/actions'
+import Switch from 'react-switch'
 import config from '@/config/constant'
+import questionImg from '@/assets/images/question.png'
 
 import './profile-address.scss'
 
@@ -19,7 +23,9 @@ class ProfileAddress extends Component {
 
   componentDidMount() {
     if (this.props.userAddress && this.props.userAddress.length) return
-    this.props.getUserAddress()
+    this.props.getUserAddress({
+      onSuccess: () => console.log(this.props.userAddress)
+    })
   }
 
   toggleDeleteAddressModal = (id) => {
@@ -43,9 +49,10 @@ class ProfileAddress extends Component {
     })
   }
 
-  updatePrimaryAddress = addressId => {
+  updatePrimaryAddress = address => {
+    if (address.primary) return
     this.props.updatePrimaryAddress({
-      addressId,
+      addressId: address.id,
       onSuccess: this.props.getUserAddress,
       onFail: () => toast(() => <div className="error-toaster">Terjadi kesalahan pada sistem, silahkan coba lagi</div>, config.app.errorToastOpt)
     })
@@ -66,7 +73,7 @@ class ProfileAddress extends Component {
                 key={address.id}
                 className="address-card"
               >
-                <div className="address-card__title">
+                <div className="address-card__title mb-6">
                   <div className="address-card__label">
                     {address.label}
                   </div>
@@ -78,11 +85,12 @@ class ProfileAddress extends Component {
                     )
                   }
                 </div>
-                <div className="address-card__receiver">
+                <div className="address-card__receiver mb-6">
                     {address.receiver}
                   </div>
-                <div>{address.location}</div>
-                <div>{address.phoneNumber}</div>
+                <div className="mb-4">{address.detail}</div>
+                <div>{address.district}, {address.regency}, {address.province}, {address.postalCode}</div>
+                <div className="mt-4">{address.phoneNumber}</div>
 
                 <div className="address-card__action-container">
                   <Link
@@ -92,19 +100,35 @@ class ProfileAddress extends Component {
                       addressId: address.id
                     }}
                   >
+                    <Icon
+                      icon={faPencilAlt}
+                      className="icon"
+                    />
                     Ubah
                   </Link>
+                  <label className="address-card__action-container--switch">
+                    <Switch
+                      id="primary-switch"
+                      onChange={() => this.updatePrimaryAddress(address)}
+                      checked={address.primary}
+                      onColor="#55C595"
+                      offColor="#9A9898"
+                      uncheckedIcon={false}
+                      checkedIcon={false}
+                      height={16}
+                      width={30}
+                      handleDiameter={14}
+                    />
+                    <div>Jadikan alamat utama</div>
+                  </label>
                   {
                     userAddress.length > 1 && !address.primary && (
                       <div onClick={() => this.toggleDeleteAddressModal(address.id)}>
+                        <Icon
+                          icon={faTrashAlt}
+                          className="icon"
+                        />
                         Hapus
-                      </div>
-                    )
-                  }
-                  {
-                    !address.primary && (
-                      <div onClick={() => this.updatePrimaryAddress(address.id)}>
-                        Jadikan alamat utama
                       </div>
                     )
                   }
@@ -132,9 +156,9 @@ class ProfileAddress extends Component {
                   onClick={this.toggleDeleteAddressModal}
                 />
                 <div className="modal-body">
-                  <h1>Hapus alamat</h1>
+                  <img src={questionImg} />
                   <p>
-                    Yakin hapus alamat ini?
+                    <strong>Yakin hapus alamat ini?</strong>
                   </p>
                   <div>
                     <button onClick={this.toggleDeleteAddressModal}>

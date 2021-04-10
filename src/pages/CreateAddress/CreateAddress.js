@@ -301,7 +301,7 @@ class CreateAddress extends Component {
               errorMessage={error.detail}
             />
 
-            <div className="create-address__form-primary">
+            <label className="create-address__form-primary">
               <Switch
                 onChange={this.handlePrimarySwitchChnage}
                 checked={this.state.form.primary}
@@ -314,7 +314,7 @@ class CreateAddress extends Component {
                 handleDiameter={16}
               />
               <div>Jadikan alamat utama</div>
-            </div>
+            </label>
 
             <button
               type="submit"
