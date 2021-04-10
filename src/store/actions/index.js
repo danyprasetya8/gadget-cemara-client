@@ -8,3 +8,11 @@ export {
   updatePrimaryAddress,
   updateUserAddress
 } from './address'
+export {
+  getProvinceList,
+  getRegencyList,
+  getDistrictList,
+  clearProvinceList,
+  clearRegencyList,
+  clearDistrictList
+} from './indonesia-area'

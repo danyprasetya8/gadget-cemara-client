@@ -4,48 +4,14 @@ import { connect } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import React, { Component } from 'react'
 import * as actionCreators from '@/store/actions'
-import FormInput from '@/components/FormInput/FormInput'
+import Input from '@UI/Input/Input'
+import Dropdown from '@UI/Dropdown/Dropdown'
+import Switch from 'react-switch'
 import config from '@/config/constant'
 
 import './create-address.scss'
 
 const page = config.page
-
-const formList = [
-  {
-    name: 'label',
-    title: 'Label alamat',
-    placeholder: 'Tulis label alamat',
-    type: 'text'
-  },
-  {
-    name: 'receiver',
-    title: 'Penerima',
-    placeholder: 'Tulis nama penerima',
-    type: 'text'
-  },
-  {
-    name: 'location',
-    title: 'Alamat',
-    placeholder: 'Tulis alamat lengkap',
-    type: 'text'
-  },
-  {
-    name: 'phoneNumber',
-    title: 'Nomor telepon',
-    placeholder: 'Tulis nomor telepon',
-    type: 'text',
-    textNumber: true
-  },
-  {
-    name: 'postalCode',
-    title: 'Kode pos',
-    placeholder: 'Tulis kode pos',
-    type: 'text',
-    textNumber: true
-  }
-]
-
 class CreateAddress extends Component {
   constructor(props) {
     super(props)
@@ -55,23 +21,67 @@ class CreateAddress extends Component {
         location: '',
         receiver: '',
         phoneNumber: '',
-        postalCode: ''
+        postalCode: '',
+        province: {
+          id: '',
+          value: ''
+        },
+        regency: {
+          id: '',
+          value: ''
+        },
+        district: {
+          id: '',
+          value: ''
+        },
+        detail: '',
+        primary: false
       },
       error: {
-        label: [],
-        location: [],
-        receiver: [],
-        phoneNumber: [],
-        postalCode: []
+        label: '',
+        location: '',
+        receiver: '',
+        phoneNumber: '',
+        postalCode: '',
+        province: '',
+        regency: '',
+        district: '',
+        detail: ''
       }
     }
   }
 
-  handleFormInputChange = (e, name) => {
+  componentDidMount() {
+    if (this.props.provinceList.length) return
+    this.props.getProvinceList()
+  }
+
+  mappedProvinceList = () => {
+    return this.props.provinceList.map(({ id, nama }) => ({ id, value: nama }))
+  }
+
+  mappedRegencyList = () => {
+    return this.props.regencyList.map(({ id, nama }) => ({ id, value: nama }))
+  }
+
+  mappedDistrictList = () => {
+    return this.props.districtList.map(({ id, nama }) => ({ id, value: nama }))
+  }
+
+  handleFormInputChange = e => {
     this.setState({
       form: {
         ...this.state.form,
-        [e.target.name]: e.target.validity.valid ? e.target.value : this.state.form[name]
+        [e.target.name]: e.target.validity.valid ? e.target.value : this.state.form[e.target.name]
+      }
+    })
+  }
+
+  handlePrimarySwitchChnage = checked => {
+    this.setState({
+      form : {
+        ...this.state.form,
+        primary: checked
       }
     })
   }
@@ -82,32 +92,42 @@ class CreateAddress extends Component {
   }
 
   validateForm = () => {
-    const { label, location, receiver, phoneNumber, postalCode } = this.state.form
+    const {
+      phoneNumber,
+      province,
+      regency,
+      district
+    } = this.state.form
+
     const error = {
-      label: [],
-      location: [],
-      receiver: [],
-      phoneNumber: [],
-      postalCode: []
+      label: '',
+      location: '',
+      receiver: '',
+      phoneNumber: '',
+      postalCode: '',
+      detail: ''
     }
 
-    if (!label.length) {
-      error.label = [...error.label, 'Harus diisi']
-    }
-    if (!location.length) {
-      error.location = [...error.location, 'Harus diisi']
-    }
-    if (!receiver.length) {
-      error.receiver = [...error.receiver, 'Harus diisi']
-    }
-    if (!phoneNumber.length) {
-      error.phoneNumber = [...error.phoneNumber, 'Harus diisi']
-    }
     if (phoneNumber.length < 8) {
-      error.phoneNumber = [...error.phoneNumber, 'Format nomor telepon salah']
+      error.phoneNumber = 'Format nomor telepon salah'
     }
-    if (!postalCode.length) {
-      error.postalCode = [...error.postalCode, 'Harus diisi']
+
+    Object.keys(error).forEach(key => {
+      if (!this.state.form[key].length) {
+        error[key] = 'Harus diisi'
+      }
+    })
+
+    if (!province.value.length) {
+      error.province = 'Harus diisi'
+    }
+
+    if (!regency.value.length) {
+      error.regency = 'Harus diisi'
+    }
+
+    if (!district.value.length) {
+      error.district = 'Harus diisi'
     }
 
     this.setState({ error }, () => {
@@ -133,6 +153,36 @@ class CreateAddress extends Component {
       .length
   }
 
+  setProvince = province => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        province,
+        regency: { id: '', value: '' },
+        district: { id: '', value: '' }
+      }
+    }, () => this.props.getRegencyList({ provinceId: this.state.form.province.id }))
+  }
+
+  setRegency = regency => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        regency,
+        district: { id: '', value: '' }
+      }
+    }, () => this.props.getDistrictList({ regencyId: this.state.form.regency.id }))
+  }
+
+  setDistrict = district => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        district
+      }
+    })
+  }
+
   render() {
     const { form, error } = this.state
 
@@ -142,33 +192,154 @@ class CreateAddress extends Component {
           <Icon
             icon={faArrowLeft}
             onClick={() => this.props.history.goBack()}
+            color="#55C595"
           />
           <strong>Buat alamat baru</strong>
         </div>
 
-        <FormInput
-          form={form}
-          error={error}
-          formInputList={formList}
-          onSubmit={this.createAddress}
-          handleFormInputChange={this.handleFormInputChange}
-        >
-          <button
-            type="submit"
-            className="create-address-form__btn"
-          >
-            Tambah alamat
-          </button>
-        </FormInput>
+        <form onSubmit={this.createAddress}>
+          <section className="create-address__form-contact p-16">
+            <div className="create-address__form-title create-address__form-title--green">
+              Kontak
+            </div>
+            <Input
+              title="Label alamat"
+              type="text"
+              placeholder="Tulis label alamat"
+              name="label"
+              value={form.label}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.label}
+            />
+
+            <Input
+              title="Penerima"
+              type="text"
+              placeholder="Tulis nama penerima"
+              name="receiver"
+              value={form.receiver}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.receiver}
+            />
+
+            <Input
+              title="Nomor telepon"
+              type="text"
+              placeholder="Tulis nomor telepon"
+              name="phoneNumber"
+              pattern={'[0-9]*'}
+              value={form.phoneNumber}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.phoneNumber}
+            />
+          </section>
+
+          <section className="create-address__form-address p-16">
+            <div className="create-address__form-title create-address__form-title--green">
+              Alamat
+            </div>
+
+            <div className="create-address__form--province">
+              <div className="create-address__form-title mb-10">
+                Provinsi
+              </div>
+              <Dropdown
+                selected={form.province}
+                disabled={!this.mappedProvinceList().length}
+                listItem={this.mappedProvinceList()}
+                handleSelectItem={this.setProvince}
+                error={error.province}
+              />
+            </div>
+
+            <div className="create-address__form--regency">
+              <div className="create-address__form-title mb-10">
+                Kota
+              </div>
+              <Dropdown
+                selected={form.regency}
+                disabled={!this.mappedRegencyList().length}
+                listItem={this.mappedRegencyList()}
+                handleSelectItem={this.setRegency}
+                error={error.regency}
+              />
+            </div>
+
+            <div className="create-address__form--district">
+              <div className="create-address__form-title mb-10">
+                Kecamatan
+              </div>
+              <Dropdown
+                selected={form.district}
+                disabled={!this.mappedDistrictList().length}
+                listItem={this.mappedDistrictList()}
+                handleSelectItem={this.setDistrict}
+                error={error.district}
+              />
+            </div>
+
+            <Input
+              title="Kode pos"
+              type="text"
+              placeholder="Tulis kode pos"
+              name="postalCode"
+              value={form.postalCode}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.postalCode}
+              pattern={'[0-9]*'}
+            />
+
+            <Input
+              title="Nama jalan dan detail lainnya"
+              type="text"
+              placeholder="Tulis detail alamat"
+              name="detail"
+              value={form.detail}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.detail}
+            />
+
+            <div className="create-address__form-primary">
+              <Switch
+                onChange={this.handlePrimarySwitchChnage}
+                checked={this.state.form.primary}
+                onColor="#55C595"
+                offColor="#9A9898"
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={18}
+                width={36}
+                handleDiameter={16}
+              />
+              <div>Jadikan alamat utama</div>
+            </div>
+
+            <button
+              type="submit"
+              className="create-address__form-btn"
+            >
+              Tambah alamat
+            </button>
+          </section>
+        </form>
         <ToastContainer className="toast-container" />
       </div>
     )
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getUserAddress: payload => dispatch(actionCreators.getUserAddress(payload)),
-  saveUserAddress: payload => dispatch(actionCreators.saveUserAddress(payload))
+const mapStateToProps = state => ({
+  provinceList: state.indonesiaArea.provinceList,
+  regencyList: state.indonesiaArea.regencyList,
+  districtList: state.indonesiaArea.districtList
 })
 
-export default connect(null, mapDispatchToProps)(CreateAddress)
+const mapDispatchToProps = dispatch => ({
+  getUserAddress: payload => dispatch(actionCreators.getUserAddress(payload)),
+  saveUserAddress: payload => dispatch(actionCreators.saveUserAddress(payload)),
+  getProvinceList: payload => dispatch(actionCreators.getProvinceList(payload)),
+  getRegencyList: payload => dispatch(actionCreators.getRegencyList(payload)),
+  getDistrictList: payload => dispatch(actionCreators.getDistrictList(payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAddress)

@@ -35,7 +35,7 @@ class App extends Component {
         <div className="App">
           <Switch>
             {
-              !this.props.isGettingUser && routes.map(({ name, path, component, roles, exact = false }) => {
+              !this.props.isGettingUser && routes.map(({ name, path, component, roles, redirect = '', exact = false }) => {
                 return (
                   <RouteGuard
                     key={name}
@@ -43,6 +43,7 @@ class App extends Component {
                     component={component}
                     exact={exact}
                     routeRoles={roles}
+                    redirect={redirect}
                   />
                 )
               })

@@ -5,7 +5,7 @@ import PageNotFound from '@/components/PageNotFound/PageNotFound'
 import config from '@/config/constant'
 import store from '@/store'
 
-const RouteGuard = ({ component: Component, routeRoles, path, ...rest }) => {
+const RouteGuard = ({ component: Component, routeRoles, path, redirect, ...rest }) => {
   const { user = {} } = store.getState()
   const { currentUser = {} } = user
 
@@ -28,7 +28,7 @@ const RouteGuard = ({ component: Component, routeRoles, path, ...rest }) => {
       if (guestAccessProtectedRoute) {
         return <Redirect to={{
           pathname: config.page.login,
-          search: `?redirect=${encodeURIComponent(path)}`
+          search: `?redirect=${encodeURIComponent(redirect ? redirect : path)}`
         }}/>
       }
 
