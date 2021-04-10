@@ -36,7 +36,8 @@ export default [
     name: 'Profile',
     path: page.profile,
     component: ProfilePage,
-    roles: [USER]
+    roles: [USER],
+    redirect: page.profileOrder
   },
   {
     name: 'LoginPage',
