@@ -18,7 +18,6 @@ class CreateAddress extends Component {
     this.state = {
       form: {
         label: '',
-        location: '',
         receiver: '',
         phoneNumber: '',
         postalCode: '',
@@ -39,7 +38,6 @@ class CreateAddress extends Component {
       },
       error: {
         label: '',
-        location: '',
         receiver: '',
         phoneNumber: '',
         postalCode: '',
@@ -101,7 +99,6 @@ class CreateAddress extends Component {
 
     const error = {
       label: '',
-      location: '',
       receiver: '',
       phoneNumber: '',
       postalCode: '',
@@ -138,8 +135,14 @@ class CreateAddress extends Component {
   }
 
   doCreateAddress = form => {
+    const requestBody = {
+      ...form,
+      province: form.province.value,
+      regency: form.regency.value,
+      district: form.district.value
+    }
     this.props.saveUserAddress({
-      form,
+      form: requestBody,
       onSuccess: () => this.props.getUserAddress({
         onSuccess: () => this.props.history.push(page.profileAddress)
       }),
@@ -148,9 +151,8 @@ class CreateAddress extends Component {
   }
 
   isValidForm = () => {
-    return !Object.values(this.state.error)
-      .flat()
-      .length
+    return Object.values(this.state.error).flat()
+      .every(str => !str.length)
   }
 
   setProvince = province => {
