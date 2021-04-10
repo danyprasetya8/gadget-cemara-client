@@ -4,47 +4,14 @@ import { connect } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import React, { Component } from 'react'
 import * as actionCreators from '@/store/actions'
-import FormInput from '@/components/FormInput/FormInput'
+import Input from '@UI/Input/Input'
+import Dropdown from '@UI/Dropdown/Dropdown'
+import Switch from 'react-switch'
 import config from '@/config/constant'
 
 import './edit-address.scss'
 
 const page = config.page
-
-const formList = [
-  {
-    name: 'label',
-    title: 'Label alamat',
-    placeholder: 'Tulis label alamat',
-    type: 'text'
-  },
-  {
-    name: 'receiver',
-    title: 'Penerima',
-    placeholder: 'Tulis nama penerima',
-    type: 'text'
-  },
-  {
-    name: 'location',
-    title: 'Alamat',
-    placeholder: 'Tulis alamat lengkap',
-    type: 'text'
-  },
-  {
-    name: 'phoneNumber',
-    title: 'Nomor telepon',
-    placeholder: 'Tulis nomor telepon',
-    type: 'text',
-    textNumber: true
-  },
-  {
-    name: 'postalCode',
-    title: 'Kode pos',
-    placeholder: 'Tulis kode pos',
-    type: 'text',
-    textNumber: true
-  }
-]
 
 class EditAddress extends Component {
   constructor(props) {
@@ -52,39 +19,129 @@ class EditAddress extends Component {
     this.state = {
       form: {
         label: '',
-        location: '',
         receiver: '',
         phoneNumber: '',
-        postalCode: ''
+        postalCode: '',
+        province: {
+          id: '',
+          value: ''
+        },
+        regency: {
+          id: '',
+          value: ''
+        },
+        district: {
+          id: '',
+          value: ''
+        },
+        detail: '',
+        primary: false
       },
       error: {
-        label: [],
-        location: [],
-        receiver: [],
-        phoneNumber: [],
-        postalCode: []
+        label: '',
+        receiver: '',
+        phoneNumber: '',
+        postalCode: '',
+        province: '',
+        regency: '',
+        district: '',
+        detail: ''
       }
     }
   }
 
   componentDidMount() {
     this.props.getOneUserAddress({
-      id: this.props.location.addressId,
-      onSuccess: () => {
-        const { oneUserAddress = {} } = this.props
-        const {
-          label = '',
-          location = '',
-          receiver = '',
-          phoneNumber = '',
-          postalCode = ''
-        } = oneUserAddress
+      id: this.getAddressIdFromQuery(),
+      onSuccess: this.onSuccessGetOneUserAddress
+    })
+  }
 
-        this.setState({
-          form: { label, location, receiver, phoneNumber, postalCode }
+  onSuccessGetOneUserAddress = () => {
+    const { oneUserAddress = {} } = this.props
+    const preFilledForm = {
+      label: oneUserAddress.label,
+      receiver: oneUserAddress.receiver,
+      phoneNumber: oneUserAddress.phoneNumber,
+      postalCode: oneUserAddress.postalCode,
+      province: {
+        id: '',
+        value: oneUserAddress.province
+      },
+      regency: {
+        id: '',
+        value: oneUserAddress.regency
+      },
+      district: {
+        id: '',
+        value: oneUserAddress.district
+      },
+      detail: oneUserAddress.detail,
+      primary: oneUserAddress.primary
+    }
+    this.setState({ form: preFilledForm }, this.fillAreaField)
+  }
+
+  findArea = area => {
+    return this.props[`${area}List`].find(o => o.nama === this.state.form[area].value) || {}
+  }
+
+  fillAreaField = () => {
+    const {
+      getProvinceList,
+      getRegencyList,
+      getDistrictList
+    } = this.props
+
+    getProvinceList({
+      onSuccess: () => {
+        getRegencyList({
+          provinceId: this.findArea('province').id,
+          onSuccess: () => {
+            getDistrictList({
+              regencyId: this.findArea('regency').id,
+              onSuccess: () => {
+                this.setState({ 
+                  form: {
+                    ...this.state.form,
+                    province: {
+                      id: this.findArea('province').id,
+                      value: this.findArea('province').nama
+                    },
+                    regency: {
+                      id: this.findArea('regency').id,
+                      value: this.findArea('regency').nama
+                    },
+                    district: {
+                      id: this.findArea('district').id,
+                      value: this.findArea('district').nama
+                    }
+                  }
+                 })
+              }
+            })
+          }
         })
       }
     })
+  }
+
+  getAddressIdFromQuery = () => {
+    const { search = '' } = this.props.location
+    const query = new URLSearchParams(search)
+    return query.get('addressId')
+  }
+
+  mappedProvinceList = () => {
+    return this.props.provinceList.map(({ id, nama }) => ({ id, value: nama }))
+  }
+
+  mappedRegencyList = () => {
+    return this.props.regencyList.map(({ id, nama }) => ({ id, value: nama }))
+  }
+
+  mappedDistrictList = () => {
+    return this.props.districtList.map(({ id, nama }) => ({ id, value: nama }))
   }
 
   handleFormInputChange = (e, name) => {
@@ -96,38 +153,57 @@ class EditAddress extends Component {
     })
   }
 
+  handlePrimarySwitchChnage = checked => {
+    if (!checked) return
+    this.setState({
+      form : {
+        ...this.state.form,
+        primary: checked
+      }
+    })
+  }
+
   updateAddress = e => {
     e && e.preventDefault()
     this.validateForm()
   }
 
   validateForm = () => {
-    const { label, location, receiver, phoneNumber, postalCode } = this.state.form
+    const {
+      phoneNumber,
+      province,
+      regency,
+      district
+    } = this.state.form
+
     const error = {
-      label: [],
-      location: [],
-      receiver: [],
-      phoneNumber: [],
-      postalCode: []
+      label: '',
+      receiver: '',
+      phoneNumber: '',
+      postalCode: '',
+      detail: ''
     }
 
-    if (!label.length) {
-      error.label = [...error.label, 'Harus diisi']
-    }
-    if (!location.length) {
-      error.location = [...error.location, 'Harus diisi']
-    }
-    if (!receiver.length) {
-      error.receiver = [...error.receiver, 'Harus diisi']
-    }
-    if (!phoneNumber.length) {
-      error.phoneNumber = [...error.phoneNumber, 'Harus diisi']
-    }
     if (phoneNumber.length < 8) {
-      error.phoneNumber = [...error.phoneNumber, 'Format nomor telepon salah']
+      error.phoneNumber = 'Format nomor telepon salah'
     }
-    if (!postalCode.length) {
-      error.postalCode = [...error.postalCode, 'Harus diisi']
+
+    Object.keys(error).forEach(key => {
+      if (!this.state.form[key].length) {
+        error[key] = 'Harus diisi'
+      }
+    })
+
+    if (!province.value.length) {
+      error.province = 'Harus diisi'
+    }
+
+    if (!regency.value.length) {
+      error.regency = 'Harus diisi'
+    }
+
+    if (!district.value.length) {
+      error.district = 'Harus diisi'
     }
 
     this.setState({ error }, () => {
@@ -138,8 +214,15 @@ class EditAddress extends Component {
   }
 
   doUpdateAddress = form => {
+    const requestBody = {
+      ...form,
+      id: this.getAddressIdFromQuery(),
+      province: form.province.value,
+      regency: form.regency.value,
+      district: form.district.value
+    }
     this.props.updateUserAddress({
-      form: { ...form, id: this.props.location.addressId },
+      form: requestBody,
       onSuccess: () => this.props.getUserAddress({
         onSuccess: () => this.props.history.push(page.profileAddress)
       }),
@@ -148,9 +231,38 @@ class EditAddress extends Component {
   }
 
   isValidForm = () => {
-    return !Object.values(this.state.error)
-      .flat()
-      .length
+    return Object.values(this.state.error).flat()
+      .every(str => !str.length)
+  }
+
+  setProvince = province => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        province,
+        regency: { id: '', value: '' },
+        district: { id: '', value: '' }
+      }
+    }, () => this.props.getRegencyList({ provinceId: this.state.form.province.id }))
+  }
+
+  setRegency = regency => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        regency,
+        district: { id: '', value: '' }
+      }
+    }, () => this.props.getDistrictList({ regencyId: this.state.form.regency.id }))
+  }
+
+  setDistrict = district => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        district
+      }
+    })
   }
 
   render() {
@@ -162,11 +274,12 @@ class EditAddress extends Component {
           <Icon
             icon={faArrowLeft}
             onClick={() => this.props.history.goBack()}
+            color="#55C595"
           />
           <strong>Ubah alamat</strong>
         </div>
 
-        <FormInput
+        {/* <FormInput
           form={form}
           error={error}
           formInputList={formList}
@@ -179,7 +292,132 @@ class EditAddress extends Component {
           >
             Ubah alamat
           </button>
-        </FormInput>
+        </FormInput> */}
+        <form onSubmit={this.updateAddress}>
+          <section className="edit-address__form-contact p-16">
+            <div className="edit-address__form-title edit-address__form-title--green">
+              Kontak
+            </div>
+            <Input
+              title="Label alamat"
+              type="text"
+              placeholder="Tulis label alamat"
+              name="label"
+              value={form.label}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.label}
+            />
+
+            <Input
+              title="Penerima"
+              type="text"
+              placeholder="Tulis nama penerima"
+              name="receiver"
+              value={form.receiver}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.receiver}
+            />
+
+            <Input
+              title="Nomor telepon"
+              type="text"
+              placeholder="Tulis nomor telepon"
+              name="phoneNumber"
+              pattern={'[0-9]*'}
+              value={form.phoneNumber}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.phoneNumber}
+            />
+          </section>
+
+          <section className="edit-address__form-address p-16">
+            <div className="edit-address__form-title edit-address__form-title--green">
+              Alamat
+            </div>
+
+            <div className="edit-address__form--province">
+              <div className="edit-address__form-title mb-10">
+                Provinsi
+              </div>
+              <Dropdown
+                selected={form.province}
+                disabled={!this.mappedProvinceList().length}
+                listItem={this.mappedProvinceList()}
+                handleSelectItem={this.setProvince}
+                error={error.province}
+              />
+            </div>
+
+            <div className="edit-address__form--regency">
+              <div className="edit-address__form-title mb-10">
+                Kota
+              </div>
+              <Dropdown
+                selected={form.regency}
+                disabled={!this.mappedRegencyList().length}
+                listItem={this.mappedRegencyList()}
+                handleSelectItem={this.setRegency}
+                error={error.regency}
+              />
+            </div>
+
+            <div className="edit-address__form--district">
+              <div className="edit-address__form-title mb-10">
+                Kecamatan
+              </div>
+              <Dropdown
+                selected={form.district}
+                disabled={!this.mappedDistrictList().length}
+                listItem={this.mappedDistrictList()}
+                handleSelectItem={this.setDistrict}
+                error={error.district}
+              />
+            </div>
+
+            <Input
+              title="Kode pos"
+              type="text"
+              placeholder="Tulis kode pos"
+              name="postalCode"
+              value={form.postalCode}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.postalCode}
+              pattern={'[0-9]*'}
+            />
+
+            <Input
+              title="Nama jalan dan detail lainnya"
+              type="text"
+              placeholder="Tulis detail alamat"
+              name="detail"
+              value={form.detail}
+              onChange={this.handleFormInputChange}
+              errorMessage={error.detail}
+            />
+
+            <label className="edit-address__form-primary">
+              <Switch
+                onChange={this.handlePrimarySwitchChnage}
+                checked={this.state.form.primary}
+                onColor="#55C595"
+                offColor="#9A9898"
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={18}
+                width={36}
+                handleDiameter={16}
+              />
+              <div>Jadikan alamat utama</div>
+            </label>
+
+            <button
+              type="submit"
+              className="edit-address__form-btn"
+            >
+              Ubah alamat
+            </button>
+          </section>
+        </form>
         <ToastContainer className="toast-container" />
       </div>
     )
@@ -187,13 +425,19 @@ class EditAddress extends Component {
 }
 
 const mapStateToProps = state => ({
-  oneUserAddress: state.address.oneUserAddress
+  oneUserAddress: state.address.oneUserAddress,
+  provinceList: state.indonesiaArea.provinceList,
+  regencyList: state.indonesiaArea.regencyList,
+  districtList: state.indonesiaArea.districtList
 })
 
 const mapDispatchToProps = dispatch => ({
   getUserAddress: payload => dispatch(actionCreators.getUserAddress(payload)),
   getOneUserAddress: payload => dispatch(actionCreators.getOneUserAddress(payload)),
-  updateUserAddress: payload => dispatch(actionCreators.updateUserAddress(payload))
+  updateUserAddress: payload => dispatch(actionCreators.updateUserAddress(payload)),
+  getProvinceList: payload => dispatch(actionCreators.getProvinceList(payload)),
+  getRegencyList: payload => dispatch(actionCreators.getRegencyList(payload)),
+  getDistrictList: payload => dispatch(actionCreators.getDistrictList(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditAddress)

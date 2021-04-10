@@ -23,9 +23,7 @@ class ProfileAddress extends Component {
 
   componentDidMount() {
     if (this.props.userAddress && this.props.userAddress.length) return
-    this.props.getUserAddress({
-      onSuccess: () => console.log(this.props.userAddress)
-    })
+    this.props.getUserAddress()
   }
 
   toggleDeleteAddressModal = (id) => {
@@ -97,7 +95,7 @@ class ProfileAddress extends Component {
                     className="link"
                     to={{
                       pathname: page.editAddress,
-                      addressId: address.id
+                      search: '?addressId=' + address.id
                     }}
                   >
                     <Icon
