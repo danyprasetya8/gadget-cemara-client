@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import { connect } from 'react-redux'
 import { isMobile } from '@/utils/responsive'
 import React, { Component } from 'react'
@@ -50,6 +51,7 @@ class App extends Component {
             }
           </Switch>
         </div>
+        <ToastContainer className="toast-container" />
       </Router>
     )
   }

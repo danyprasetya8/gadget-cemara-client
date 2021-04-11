@@ -1,6 +1,5 @@
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { ToastContainer, toast } from 'react-toastify';
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -41,8 +40,7 @@ class ProfileAddress extends Component {
     this.props.deleteUserAddress({
       addressId: this.state.savedAddressId,
       onSuccess: () => this.props.getUserAddress({
-        onSuccess: () => this.setState({ visibleDeleteAddressModal: false }),
-        onFail: () => toast(() => <div className="error-toaster">Terjadi kesalahan pada sistem, silahkan coba lagi</div>, config.app.errorToastOpt)
+        onSuccess: () => this.setState({ visibleDeleteAddressModal: false })
       })
     })
   }
@@ -51,8 +49,7 @@ class ProfileAddress extends Component {
     if (address.primary) return
     this.props.updatePrimaryAddress({
       addressId: address.id,
-      onSuccess: this.props.getUserAddress,
-      onFail: () => toast(() => <div className="error-toaster">Terjadi kesalahan pada sistem, silahkan coba lagi</div>, config.app.errorToastOpt)
+      onSuccess: this.props.getUserAddress
     })
   }
 
@@ -171,7 +168,6 @@ class ProfileAddress extends Component {
             </>
           )
         }
-        <ToastContainer className="toast-container" />
       </div>
     )
   }

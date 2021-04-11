@@ -1,7 +1,6 @@
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
-import { ToastContainer, toast } from 'react-toastify';
 import React, { Component } from 'react'
 import * as actionCreators from '@/store/actions'
 import Input from '@UI/Input/Input'
@@ -9,7 +8,6 @@ import male from '@/assets/images/svg/male.svg'
 import config from '@/config/constant'
 
 import './edit-profile.scss'
-import { getCurrentUser } from '../../store/actions';
 
 const page = config.page
 

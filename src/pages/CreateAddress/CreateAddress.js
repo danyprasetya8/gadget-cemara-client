@@ -1,7 +1,6 @@
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
-import { ToastContainer, toast } from 'react-toastify';
 import React, { Component } from 'react'
 import * as actionCreators from '@/store/actions'
 import Input from '@UI/Input/Input'
@@ -145,8 +144,7 @@ class CreateAddress extends Component {
       form: requestBody,
       onSuccess: () => this.props.getUserAddress({
         onSuccess: () => this.props.history.push(page.profileAddress)
-      }),
-      onFail: () => toast(() => <div className="error-toaster">Terjadi kesalahan pada sistem, silahkan coba lagi</div>, config.app.errorToastOpt)
+      })
     })
   }
 
@@ -324,7 +322,6 @@ class CreateAddress extends Component {
             </button>
           </section>
         </form>
-        <ToastContainer className="toast-container" />
       </div>
     )
   }
