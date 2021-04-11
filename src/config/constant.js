@@ -21,6 +21,7 @@ export default {
     profileReview: '/profile/review',
     editAddress: '/address/edit',
     createAddress: '/address/create',
+    changePassword: '/change-password'
   },
   role: {
     USER: 'ROLE_USER',

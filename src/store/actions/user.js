@@ -50,3 +50,9 @@ export const registerUser = payload => () => {
     .then(res => payload.onSuccess && payload.onSuccess(res))
     .catch(err => payload.onFail && payload.onFail(err))
 }
+
+export const updateUser = payload => () => {
+  axios.put(api.user, payload.form)
+    .then(res => payload.onSuccess && payload.onSuccess(res))
+    .catch(err => payload.onFail && payload.onFail(err))
+}

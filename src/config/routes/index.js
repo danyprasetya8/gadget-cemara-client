@@ -7,6 +7,7 @@ import RegisterPage from '@/pages/RegisterPage/RegisterPage'
 import EditProfile from '@/pages/EditProfile/EditProfile'
 import EditAddress from '@/pages/EditAddress/EditAddress'
 import CreateAddress from '@/pages/CreateAddress/CreateAddress'
+import ChangePassword from '@/pages/ChangePassword/ChangePassword'
 import config from '@/config/constant'
 
 const page = config.page
@@ -67,6 +68,12 @@ export default [
     name: 'CreateAddress',
     path: page.createAddress,
     component: CreateAddress,
+    roles: [USER]
+  },
+  {
+    name: 'ChangePassword',
+    path: page.changePassword,
+    component: ChangePassword,
     roles: [USER]
   }
 ]
