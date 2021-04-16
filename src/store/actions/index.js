@@ -1,5 +1,12 @@
 export { setIsMobile } from './main'
-export { login, getCurrentUser, registerUser } from './user'
+export {
+  login,
+  getCurrentUser,
+  registerUser,
+  updateUser,
+  requestChangePasswordOtp,
+  verifyChangePassword
+} from './user'
 export {
   getUserAddress,
   getOneUserAddress,

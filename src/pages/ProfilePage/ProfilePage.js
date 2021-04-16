@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Switch, Link , useHistory, useLocation } from 'react-router-dom'
-import React, { useState } from 'react'
+import React from 'react'
 import BottomNavigation from '@/components/BottomNavigation/BottomNavigation'
 import RouteGuard from '@/utils/route-guard'
 import male from '@/assets/images/svg/male.svg'

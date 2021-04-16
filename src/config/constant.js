@@ -21,19 +21,22 @@ export default {
     profileReview: '/profile/review',
     editAddress: '/address/edit',
     createAddress: '/address/create',
+    changePassword: '/change-password'
   },
   role: {
     USER: 'ROLE_USER',
     ADMIN: 'ROLE_ADMIN'
   },
   app: {
-    errorToastOpt: {
-      position: toast.POSITION.BOTTOM_CENTER,
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeButton: false,
-      type: toast.TYPE.DARK,
-      transition: Fade
+    toastOpt(type) {
+      return {
+        position: toast.POSITION.BOTTOM_CENTER,
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeButton: false,
+        type,
+        transition: Fade
+      }
     },
     userLoggedInBlacklistedPath: [
       '/login',

@@ -1,7 +1,6 @@
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
-import { ToastContainer, toast } from 'react-toastify';
 import React, { Component } from 'react'
 import * as actionCreators from '@/store/actions'
 import Input from '@UI/Input/Input'
@@ -225,8 +224,7 @@ class EditAddress extends Component {
       form: requestBody,
       onSuccess: () => this.props.getUserAddress({
         onSuccess: () => this.props.history.push(page.profileAddress)
-      }),
-      onFail: () => toast(() => <div className="error-toaster">Terjadi kesalahan pada sistem, silahkan coba lagi</div>, config.app.errorToastOpt)
+      })
     })
   }
 
@@ -279,20 +277,6 @@ class EditAddress extends Component {
           <strong>Ubah alamat</strong>
         </div>
 
-        {/* <FormInput
-          form={form}
-          error={error}
-          formInputList={formList}
-          onSubmit={this.updateAddress}
-          handleFormInputChange={this.handleFormInputChange}
-        >
-          <button
-            type="submit"
-            className="edit-address-form__btn"
-          >
-            Ubah alamat
-          </button>
-        </FormInput> */}
         <form onSubmit={this.updateAddress}>
           <section className="edit-address__form-contact p-16">
             <div className="edit-address__form-title edit-address__form-title--green">
@@ -418,7 +402,6 @@ class EditAddress extends Component {
             </button>
           </section>
         </form>
-        <ToastContainer className="toast-container" />
       </div>
     )
   }

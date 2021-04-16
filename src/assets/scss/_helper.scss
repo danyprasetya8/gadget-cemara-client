@@ -98,12 +98,11 @@
   .Toastify__toast {
     min-height: 0;
     padding: 4px;
-    background: #D31244;
     border-radius: 0;
   }
 }
 
-.error-toaster {
+.toaster-body {
   padding: 3px;
   font-size: 1.3rem;
 }
