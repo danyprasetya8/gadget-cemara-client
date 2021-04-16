@@ -8,8 +8,8 @@ const axiosInstance = axios.create()
 axiosInstance.interceptors.response.use(res => res, error => {
   if (error.response.status === 500) {
     toast(() => (
-      <div className="error-toaster">Terjadi kesalahan pada sistem, silahkan coba lagi</div>
-    ), config.app.errorToastOpt)
+      <div className="toaster-body">Terjadi kesalahan pada sistem, silahkan coba lagi</div>
+    ), config.app.toastOpt(toast.TYPE.ERROR))
   }
   return Promise.reject(error)
 })

@@ -3,7 +3,9 @@ export {
   login,
   getCurrentUser,
   registerUser,
-  updateUser
+  updateUser,
+  requestChangePasswordOtp,
+  verifyChangePassword
 } from './user'
 export {
   getUserAddress,

@@ -277,20 +277,6 @@ class EditAddress extends Component {
           <strong>Ubah alamat</strong>
         </div>
 
-        {/* <FormInput
-          form={form}
-          error={error}
-          formInputList={formList}
-          onSubmit={this.updateAddress}
-          handleFormInputChange={this.handleFormInputChange}
-        >
-          <button
-            type="submit"
-            className="edit-address-form__btn"
-          >
-            Ubah alamat
-          </button>
-        </FormInput> */}
         <form onSubmit={this.updateAddress}>
           <section className="edit-address__form-contact p-16">
             <div className="edit-address__form-title edit-address__form-title--green">

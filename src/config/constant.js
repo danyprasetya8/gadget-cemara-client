@@ -28,13 +28,15 @@ export default {
     ADMIN: 'ROLE_ADMIN'
   },
   app: {
-    errorToastOpt: {
-      position: toast.POSITION.BOTTOM_CENTER,
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeButton: false,
-      type: toast.TYPE.DARK,
-      transition: Fade
+    toastOpt(type) {
+      return {
+        position: toast.POSITION.BOTTOM_CENTER,
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeButton: false,
+        type,
+        transition: Fade
+      }
     },
     userLoggedInBlacklistedPath: [
       '/login',

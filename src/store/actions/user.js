@@ -56,3 +56,23 @@ export const updateUser = payload => () => {
     .then(res => payload.onSuccess && payload.onSuccess(res))
     .catch(err => payload.onFail && payload.onFail(err))
 }
+
+const setChangePasswordOtp = value => ({
+  type: actionTypes.SET_CHANGE_PASSWORD_OTP,
+  value
+})
+
+export const requestChangePasswordOtp = (payload = {}) => dispatch => {
+  axios.post(api.changePasswordOtp, payload.form)
+    .then(res => {
+      dispatch(setChangePasswordOtp(res))
+      payload.onSuccess && payload.onSuccess(res)
+    })
+    .catch(err => payload.onFail && payload.onFail(err))
+}
+
+export const verifyChangePassword = (payload = {}) => () => {
+  axios.post(api.changePassword, payload.form)
+    .then(res => payload.onSuccess && payload.onSuccess(res))
+    .catch(err => payload.onFail && payload.onFail(err))
+}

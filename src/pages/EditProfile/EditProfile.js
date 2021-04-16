@@ -69,7 +69,7 @@ class EditProfile extends Component {
         <div className="header p-16">
           <Icon
             icon={faArrowLeft}
-            onClick={() => this.props.history.goBack()}
+            onClick={() => this.props.history.push(page.profileOrder)}
             color="#55C595"
           />
           <strong>Ubah profil</strong>
