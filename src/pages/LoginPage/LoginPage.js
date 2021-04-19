@@ -134,7 +134,10 @@ class LoginPage extends Component {
           onSubmit={this.login}
           handleFormInputChange={this.handleFormInputChange}
         >
-          <Link className="login-form__forgot-pass">
+          <Link
+            className="login-form__forgot-pass"
+            to={page.resetPassword}
+          >
             Lupa kata sandi
           </Link>
           <button

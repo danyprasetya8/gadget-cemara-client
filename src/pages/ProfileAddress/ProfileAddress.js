@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actionCreators from '@/store/actions'
 import Switch from 'react-switch'
+import BottomSheet from '@UI/BottomSheet/BottomSheet'
 import config from '@/config/constant'
 import questionImg from '@/assets/images/question.png'
 
@@ -144,28 +145,22 @@ class ProfileAddress extends Component {
         }
         {
           this.state.visibleDeleteAddressModal && (
-            <>
-              <section className="delete-address-modal">
-                <div
-                  className="mask"
-                  onClick={this.toggleDeleteAddressModal}
-                />
-                <div className="modal-body">
-                  <img src={questionImg} />
-                  <p>
-                    <strong>Yakin hapus alamat ini?</strong>
-                  </p>
-                  <div>
-                    <button onClick={this.toggleDeleteAddressModal}>
-                      Kembali
-                    </button>
-                    <button onClick={() => this.deleteAddress()}>
-                      Hapus
-                    </button>
-                  </div>
+            <BottomSheet onClose={this.toggleDeleteAddressModal}>
+              <div className="delete-address-modal">
+                <img src={questionImg} />
+                <p>
+                  <strong>Yakin hapus alamat ini?</strong>
+                </p>
+                <div>
+                  <button onClick={this.toggleDeleteAddressModal}>
+                    Kembali
+                  </button>
+                  <button onClick={() => this.deleteAddress()}>
+                    Hapus
+                  </button>
                 </div>
-              </section>
-            </>
+              </div>
+            </BottomSheet>
           )
         }
       </div>

@@ -11,7 +11,8 @@
   }
 
   &__error {
-    border: 1px solid $red-3; 
+    border: 1px solid $red-3;
+    margin-bottom: 5px;
   }
 
   &__error-msg {
@@ -22,10 +23,6 @@
 
   &__title {
     font-size: 1.4rem;
-    margin-bottom: 8px;
-  }
-
-  > input {
     margin-bottom: 8px;
   }
 }

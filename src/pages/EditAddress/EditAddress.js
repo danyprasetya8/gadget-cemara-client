@@ -152,7 +152,7 @@ class EditAddress extends Component {
     })
   }
 
-  handlePrimarySwitchChnage = checked => {
+  handlePrimarySwitchChange = checked => {
     if (!checked) return
     this.setState({
       form : {
@@ -381,7 +381,7 @@ class EditAddress extends Component {
 
             <label className="edit-address__form-primary">
               <Switch
-                onChange={this.handlePrimarySwitchChnage}
+                onChange={this.handlePrimarySwitchChange}
                 checked={this.state.form.primary}
                 onColor="#55C595"
                 offColor="#9A9898"

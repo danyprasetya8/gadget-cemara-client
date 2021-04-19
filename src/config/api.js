@@ -1,8 +1,11 @@
 export default {
   login: '/backend/public/login',
   user: '/backend/user',
-  changePasswordOtp: '/backend/user/_request-otp',
+  changePasswordOtp: '/backend/user/change-password-otp',
   changePassword: '/backend/user/_change-password',
+  resetPasswordOtp: '/backend/public/reset-password-otp',
+  resetPassword: '/backend/public/_reset-password',
+  verifyResetPasswordOtp: '/backend/public/_verify-reset-password-otp',
   address: '/backend/address',
   updatePrimaryAddress: '/backend/address/_setPrimary',
   oneAddress(id) {

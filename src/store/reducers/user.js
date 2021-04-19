@@ -5,7 +5,7 @@ const initialState = {
     init: false
   },
   isGettingUser: true,
-  changePasswordOtp: null
+  otpResponse: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -27,11 +27,11 @@ const reducer = (state = initialState, action) => {
         isGettingUser: action.value
       }
     }
-    case actionTypes.SET_CHANGE_PASSWORD_OTP: {
+    case actionTypes.SET_OTP_RESPONSE: {
       const { data = {} } = action.value
       return {
         ...state,
-        changePasswordOtp: data
+        otpResponse: data
       }
     }
   } 
