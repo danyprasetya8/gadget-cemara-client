@@ -14,6 +14,7 @@ export default {
     profile: '/profile',
     editProfile: '/edit-profile',
     login: '/login',
+    resetPassword: '/reset-password',
     register: '/register',
     profileOrder: '/profile/order',
     profileWishlist: '/profile/wishlist',
@@ -31,7 +32,7 @@ export default {
     toastOpt(type) {
       return {
         position: toast.POSITION.BOTTOM_CENTER,
-        autoClose: 2000,
+        autoClose: 3000,
         hideProgressBar: true,
         closeButton: false,
         type,

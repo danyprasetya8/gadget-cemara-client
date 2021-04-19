@@ -57,15 +57,15 @@ export const updateUser = payload => () => {
     .catch(err => payload.onFail && payload.onFail(err))
 }
 
-const setChangePasswordOtp = value => ({
-  type: actionTypes.SET_CHANGE_PASSWORD_OTP,
+const setOtpResponse = value => ({
+  type: actionTypes.SET_OTP_RESPONSE,
   value
 })
 
 export const requestChangePasswordOtp = (payload = {}) => dispatch => {
   axios.post(api.changePasswordOtp, payload.form)
     .then(res => {
-      dispatch(setChangePasswordOtp(res))
+      dispatch(setOtpResponse(res))
       payload.onSuccess && payload.onSuccess(res)
     })
     .catch(err => payload.onFail && payload.onFail(err))
@@ -75,4 +75,25 @@ export const verifyChangePassword = (payload = {}) => () => {
   axios.post(api.changePassword, payload.form)
     .then(res => payload.onSuccess && payload.onSuccess(res))
     .catch(err => payload.onFail && payload.onFail(err))
+}
+
+export const requestResetPasswordOtp = (payload = {}) => dispatch => {
+  axios.post(api.resetPasswordOtp, payload.form)
+    .then(res => {
+      dispatch(setOtpResponse(res))
+      payload.onSuccess && payload.onSuccess(res)
+    })
+    .catch(err => payload.onFail && payload.onFail(err))
+}
+
+export const resetPassword = (payload = {}) => () => {
+  axios.post(api.resetPassword, payload.form)
+    .then(res => payload.onSuccess && payload.onSuccess(res))
+    .catch(err => payload.onFail && payload.onFail(err))
+}
+
+export const verifyResetPasswordOtp = (payload = {}) => () => {
+  axios.post(api.verifyResetPasswordOtp, payload.form)
+  .then(res => payload.onSuccess && payload.onSuccess(res))
+  .catch(err => payload.onFail && payload.onFail(err))
 }

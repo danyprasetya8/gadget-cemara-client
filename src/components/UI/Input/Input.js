@@ -8,7 +8,7 @@ const Input = ({ errorMessage, title, ...props }) => {
     errorMessage ? 'Input__error' : ''
   ]
   return (
-    <>
+    <div>
       <div className="Input__title">{title}</div>
       <input
         className={classList.join(' ')}
@@ -21,7 +21,7 @@ const Input = ({ errorMessage, title, ...props }) => {
           </div>
         )
       }
-    </>
+    </div>
   )
 }
 

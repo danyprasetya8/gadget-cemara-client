@@ -1,16 +1,15 @@
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
 import React, { Component } from 'react'
 import * as actionCreators from '@/store/actions'
 import Input from '@UI/Input/Input'
-import OtpInput from 'react-otp-input'
-import Countdown from '@/components/Countdown/Countdown'
-import BottomSheet from '@UI/BottomSheet/BottomSheet'
+import OtpModal from '@/components/OtpModal/OtpModal'
+import PageHeader from '@/components/PageHeader/PageHeader'
 import config from '@/config/constant'
 
 import './change-password.scss'
+
+const page = config.page
 class ChangePassword extends Component {
   constructor(props) {
     super(props)
@@ -53,10 +52,10 @@ class ChangePassword extends Component {
         toast(() => (
           <div className="toaster-body">Kata sandi berhasil diubah</div>
         ), config.app.toastOpt(toast.TYPE.INFO))
-        this.props.history.push(config.page.editProfile)
+        this.props.history.push(page.editProfile)
       },
       onFail: err => {
-        if (err.response.data.includes('InvalidToken')) {
+        if (err.response && err.response.data.includes('InvalidToken')) {
           this.setState({ isInvalidToken: true, otpInput: '' })
         }
       }
@@ -91,7 +90,7 @@ class ChangePassword extends Component {
 
     this.setState({ error }, () => {
       if (this.isValidForm()) {
-        this.requestChangePasswordOtp(this.state.form)
+        this.requestChangePasswordOtp()
         return
       }
     })
@@ -102,13 +101,16 @@ class ChangePassword extends Component {
       .every(str => !str.length)
   }
 
-  requestChangePasswordOtp = (form, successCb = null) => {
+  requestChangePasswordOtp = (additionalForm = {}, successCb = null) => {
     this.setState({ isRequestingOtp: true })
     this.props.requestChangePasswordOtp({
-      form,
+      form: {
+        ...this.state.form,
+        ...additionalForm
+      },
       onSuccess: successCb ? successCb : () => this.setState({ visibleOtpModal: true, isRequestingOtp: false }),
       onFail: err => {
-        if (err.response.data.includes('PasswordStillSame')) {
+        if (err.response && err.response.data && err.response.data.includes('PasswordStillSame')) {
           this.setState({ isStillSamePassword: true, isRequestingOtp: false })
           return
         }
@@ -122,7 +124,7 @@ class ChangePassword extends Component {
   }
 
   resendOtp = () => {
-    this.requestChangePasswordOtp(this.state.form, () => this.setState({ isEnabledResendOtp: false, isRequestingOtp: false }))
+    this.requestChangePasswordOtp({ resend: true }, () => this.setState({ isEnabledResendOtp: false, isRequestingOtp: false }))
   }
 
   toggleOtpModal = () => {
@@ -130,19 +132,19 @@ class ChangePassword extends Component {
   }
 
   render() {
-    const { form, error, isStillSamePassword, visibleOtpModal, otpInput, isEnabledResendOtp, isInvalidToken } = this.state
-    const { changePasswordOtp } = this.props
+    const {
+      form,
+      error,
+      isStillSamePassword,
+      visibleOtpModal,
+    } = this.state
 
     return (
       <div className="change-password">
-        <div className="header p-16">
-          <Icon
-            icon={faArrowLeft}
-            onClick={() => this.props.history.goBack()}
-            color="#55C595"
-          />
-          <strong>Ubah kata sandi</strong>
-        </div>
+        <PageHeader
+          title="Ubah kata sandi"
+          onBack={() => this.props.history.push(page.editProfile)}
+        />
 
         <form
           onSubmit={this.doChangePasswordOtp}
@@ -186,56 +188,19 @@ class ChangePassword extends Component {
 
         {
           visibleOtpModal && (
-            <BottomSheet onClose={this.toggleOtpModal}>
-              <div className="modal-otp__body p-8">
-                <h2 className="mb-6">Masukkan kode verifikasi</h2>
-                <p>Kami telah mengirimkan kode verifikasi 4 digit ke {changePasswordOtp.target} </p>
-                <p className="mtb-6">Demi keamananmu, jangan berikan kode tersebut kepada siapapun</p>
-                <OtpInput
-                  value={otpInput}
-                  onChange={otpInput => this.setState({ otpInput })}
-                  numInputs={4}
-                  isInputNum
-                  shouldAutoFocus
-                  separator={<span>&nbsp;</span>}
-                  containerStyle="modal-otp__input-container mt-10"
-                  inputStyle="modal-otp__input"
-                />
-                {
-                  isEnabledResendOtp ? (
-                    <a
-                      className="mt-20 modal-otp__resend"
-                      onClick={this.resendOtp}
-                    >
-                      <strong>Kirim ulang kode OTP</strong>
-                    </a>
-                  ) : (
-                    <strong className="mt-20 modal-otp__countdown-resend">
-                      <div className="mb-6">Kirim ulang dalam</div>
-                      <Countdown
-                        time={Math.floor(changePasswordOtp.remainingTime / 1000)}
-                        onCountdownComplete={this.onCountdownComplete}
-                      />
-                      {
-                        isInvalidToken && (
-                          <div className="change-password__error-message p-8">
-                            Kode OTP salah
-                          </div>
-                        )
-                      }
-                    </strong>
-                  )
-                }
-                <button
-                  onClick={this.verifyChangePassword}
-                  className={['mt-20',
-                    otpInput.length < 4 ? 'change-password__form-btn--disabled' : 'change-password__form-btn'
-                  ].join(' ')}
-                >
-                  Verifikasi
-                </button>
-              </div>
-            </BottomSheet>
+            <OtpModal
+              onClose={() => this.setState({ visibleOtpModal: false })}
+              toggleOtpModal={this.toggleOtpModal}
+              resendOtp={this.resendOtp}
+              onCountdownComplete={this.onCountdownComplete}
+              verifyOnClick={this.verifyChangePassword}
+              target={this.props.otpResponse.target}
+              resendRemainingTime={this.props.otpResponse.resendRemainingTime}
+              input={this.state.otpInput}
+              setInput={otpInput => this.setState({ otpInput })}
+              isEnabledResendOtp={this.state.isEnabledResendOtp}
+              isInvalidToken={this.state.isInvalidToken}
+            />
           )
         }
       </div>
@@ -244,7 +209,7 @@ class ChangePassword extends Component {
 }
 
 const mapStateToProps = state => ({
-  changePasswordOtp: state.user.changePasswordOtp
+  otpResponse: state.user.otpResponse
 })
 
 const mapDispatchToProps = dispatch => ({

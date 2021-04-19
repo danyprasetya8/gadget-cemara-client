@@ -8,6 +8,7 @@ import EditProfile from '@/pages/EditProfile/EditProfile'
 import EditAddress from '@/pages/EditAddress/EditAddress'
 import CreateAddress from '@/pages/CreateAddress/CreateAddress'
 import ChangePassword from '@/pages/ChangePassword/ChangePassword'
+import RequestResetPassword from '@/pages/RequestResetPassword/RequestResetPassword'
 import config from '@/config/constant'
 
 const page = config.page
@@ -75,5 +76,11 @@ export default [
     path: page.changePassword,
     component: ChangePassword,
     roles: [USER]
+  },
+  {
+    name: 'RequestResetPassword',
+    path: page.resetPassword,
+    component: RequestResetPassword,
+    roles: []
   }
 ]

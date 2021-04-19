@@ -5,7 +5,10 @@ export {
   registerUser,
   updateUser,
   requestChangePasswordOtp,
-  verifyChangePassword
+  verifyChangePassword,
+  requestResetPasswordOtp,
+  resetPassword,
+  verifyResetPasswordOtp
 } from './user'
 export {
   getUserAddress,
