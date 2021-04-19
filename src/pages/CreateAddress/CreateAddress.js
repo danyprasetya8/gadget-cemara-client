@@ -1,11 +1,10 @@
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import * as actionCreators from '@/store/actions'
 import Input from '@UI/Input/Input'
 import Dropdown from '@UI/Dropdown/Dropdown'
 import Switch from 'react-switch'
+import PageHeader from '@/components/PageHeader/PageHeader'
 import config from '@/config/constant'
 
 import './create-address.scss'
@@ -188,15 +187,10 @@ class CreateAddress extends Component {
 
     return (
       <div className="create-address">
-        <div className="header p-16">
-          <Icon
-            icon={faArrowLeft}
-            onClick={() => this.props.history.goBack()}
-            color="#55C595"
-          />
-          <strong>Buat alamat baru</strong>
-        </div>
-
+        <PageHeader
+          title="Buat alamat baru"
+          onBack={() => this.props.history.push(page.profileAddress)}
+        />
         <form onSubmit={this.createAddress}>
           <section className="create-address__form-contact p-16">
             <div className="create-address__form-title create-address__form-title--green">

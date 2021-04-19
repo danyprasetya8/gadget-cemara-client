@@ -13,7 +13,7 @@ const PageHeader = props => {
     <div className="page-header p-16">
     <Icon
       icon={faArrowLeft}
-      onClick={props.onBack ? props.onBack : history.goBack}
+      onClick={props.onBack}
       color="#55C595"
     />
     <strong>{props.title}</strong>
@@ -25,5 +25,5 @@ export default PageHeader
 
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  onBack: PropTypes.func
+  onBack: PropTypes.func.isRequired
 }

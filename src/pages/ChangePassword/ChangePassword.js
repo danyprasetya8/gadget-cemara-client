@@ -1,14 +1,15 @@
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
 import React, { Component } from 'react'
 import * as actionCreators from '@/store/actions'
 import Input from '@UI/Input/Input'
 import OtpModal from '@/components/OtpModal/OtpModal'
+import PageHeader from '@/components/PageHeader/PageHeader'
 import config from '@/config/constant'
 
 import './change-password.scss'
+
+const page = config.page
 class ChangePassword extends Component {
   constructor(props) {
     super(props)
@@ -51,7 +52,7 @@ class ChangePassword extends Component {
         toast(() => (
           <div className="toaster-body">Kata sandi berhasil diubah</div>
         ), config.app.toastOpt(toast.TYPE.INFO))
-        this.props.history.push(config.page.editProfile)
+        this.props.history.push(page.editProfile)
       },
       onFail: err => {
         if (err.response && err.response.data.includes('InvalidToken')) {
@@ -140,14 +141,10 @@ class ChangePassword extends Component {
 
     return (
       <div className="change-password">
-        <div className="header p-16">
-          <Icon
-            icon={faArrowLeft}
-            onClick={() => this.props.history.goBack()}
-            color="#55C595"
-          />
-          <strong>Ubah kata sandi</strong>
-        </div>
+        <PageHeader
+          title="Ubah kata sandi"
+          onBack={() => this.props.history.push(page.editProfile)}
+        />
 
         <form
           onSubmit={this.doChangePasswordOtp}

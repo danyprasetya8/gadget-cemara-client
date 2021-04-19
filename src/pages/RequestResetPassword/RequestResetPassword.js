@@ -6,8 +6,11 @@ import PageHeader from '@/components/PageHeader/PageHeader'
 import Input from '@UI/Input/Input'
 import OtpModal from '@/components/OtpModal/OtpModal'
 import ResetPassword from '@/components/ResetPassword/ResetPassword'
+import config from '@/config/constant'
 
 import './request-reset-password.scss'
+
+const page = config.page
 
 class RequestResetPassword extends Component {
   constructor(props) {
@@ -121,7 +124,10 @@ class RequestResetPassword extends Component {
     const { form, error, visibleOtpModal, isUserNameNotExist, visibleResetPasswordForm } = this.state
     return (
       <div className="request-reset-password">
-        <PageHeader title="Reset kata sandi" />
+        <PageHeader
+          title="Reset kata sandi"
+          onBack={() => this.props.history.push(page.login)}
+        />
         {
           !visibleResetPasswordForm && (
             <form
