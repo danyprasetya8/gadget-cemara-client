@@ -1,0 +1,126 @@
+.profile-address {
+  display: flex;
+  flex-direction: column;
+
+  .address-card {
+    background: #fff;
+    padding: 12px;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    border-bottom: 1px solid $grey-1;
+
+    &:first-child {
+      border-top: 1px solid $grey-1;
+    }
+
+    &__label {
+      text-transform: uppercase;
+      color: $grey-2;
+    }
+  
+    &__title {
+      display: flex;
+      align-items: center;
+    }
+  
+    &__receiver {
+      font-weight: 800;
+    }
+  
+    &__primary-label {
+      font-size: 1.1rem;
+      color: $green-2;
+      font-weight: 800;
+      background: rgba($color: $green-1, $alpha: .2);
+      display: flex;
+      text-align: center;
+      margin-left: 6px;
+      padding: 4px 6px;
+      border-radius: 12px;
+    }
+
+    &__action-container {
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+      text-decoration: none;
+      color: $grey-2;
+
+      .link {
+        text-decoration: none;
+        color: $grey-2;
+      }
+
+      > * {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        white-space: nowrap;
+      }
+
+      .icon {
+        margin-right: 4px;
+      }
+
+      &--switch {
+        > div {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+
+  > .add-address-btn {
+    @include gc-btn-secondary;
+    width: 75%;
+    padding: 8px 14px;
+    margin-top: 12px;
+    align-self: center;
+    box-shadow: none;
+  }
+
+  .delete-address-modal {
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > img {
+      width: 50%;
+      height: 50%;
+    }
+
+    > p {
+      margin: 12px 0;
+    }
+
+    > div {
+      display: flex;
+      width: 100%;
+      
+      > button {
+        width: 50%;
+
+        &:first-child {
+          @include gc-btn-secondary;
+          padding: 6px 12px;
+          margin-right: 18px;
+        }
+
+        &:nth-child(2) {
+          @include gc-btn-primary;
+          padding: 6px 12px;
+        }
+      }
+    }
+  }
+}
+
+.modal-body {
+  // transform: translate(-50%, -50%);
+  // background: #fff;
+  // border-radius: 12px;
+  // width: 75%;
+
+  // z-index: 3;
+}

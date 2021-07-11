@@ -16,9 +16,19 @@ module.exports = {
     filename: 'app.js',
     publicPath: '/'
   },
+  devServer: {
+    historyApiFallback: true,
+    proxy: {
+      '/backend/': {
+        target: 'http://localhost:8081',
+        changeOrigin: true
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': resolve('./src'),
+      '@UI': resolve('./src/components/UI'),
       '@api-mock': isDevelopment ? resolve('./src/api-mock') : resolve('./src/empty'),
       'axios-mock-adapter': isDevelopment ? 'axios-mock-adapter/dist/axios-mock-adapter.min.js' : resolve('./src/empty')
     },

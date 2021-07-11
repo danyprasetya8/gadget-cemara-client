@@ -1,5 +1,5 @@
-import { useHistory, useLocation } from 'react-router-dom'
-import React from 'react'
+import { withRouter } from 'react-router-dom'
+import React, { Component } from 'react'
 import home from '@/assets/images/svg/home.svg'
 import homeActive from '@/assets/images/svg/home-active.svg'
 import article from '@/assets/images/svg/article.svg'
@@ -16,62 +16,125 @@ const navigationList = [
   {
     icon: home,
     activeIcon: homeActive,
-    text: 'Home',
-    path: config.page.dashboard
+    text: 'Beranda',
+    path: config.page.dashboard,
+    active: [config.page.dashboard]
   },
   {
     icon: article,
     activeIcon: articleActive,
-    text: 'Article',
-    path: config.page.article
+    text: 'Artikel',
+    path: config.page.article,
+    active: [config.page.article]
   },
   {
     icon: bell,
     activeIcon: bellActive,
-    text: 'Notification',
-    path: config.page.notification
+    text: 'Notifikasi',
+    path: config.page.notification,
+    active: [config.page.notification]
   },
   {
     icon: user,
     activeIcon: userActive,
-    text: 'Profile',
-    path: config.page.profile
+    text: 'Profil',
+    path: config.page.profileOrder,
+    active: [
+      config.page.profile,
+      config.page.profileOrder,
+      config.page.profileWishlist,
+      config.page.profileAddress,
+      config.page.profileReview,
+    ]
   }
 ]
 
-const BottomNavigation = () => {
-  const history = useHistory()
+class BottomNavigation extends Component {
+  constructor(props) {
+    super(props)
+    this.intersectionEl = null
+    this.setIntersectionRef = el => {
+      this.intersectionEl = el
+    }
 
-  const navigateTo = path => {
-    history.push(path)
+    this.state = {
+      positionSticky: false,
+      observer: null
+    }
   }
 
-  return (
-    <div className="bottom-navigation">
-      {
-        navigationList.map(navigator => (
-          <div
-            key={navigator.path}
-            className="navigator"
-            onClick={() => navigateTo(navigator.path)}
-          >
-            <img src={
-              useLocation().pathname === navigator.path
-                ? navigator.activeIcon
-                : navigator.icon
-            } />
-            <small style={{
-              color: useLocation().pathname === navigator.path
-              ? '#55C595'
-              : '#9A9898'
-            }}>
-              {navigator.text}
-            </small>
-          </div>
-        ))
+  componentDidMount() {
+    this.initIntersectionObserver()
+  }
+
+  componentWillUnmount() {
+    this.destroyIntersectionObserver()
+  }
+
+  initIntersectionObserver = () => {
+    const screenHeight = window.innerHeight
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && entries[0].boundingClientRect.bottom > screenHeight) {
+        this.setState({ positionSticky: true })
+        return
       }
-    </div>
-  )
+      this.setState({ positionSticky: false })
+    })
+
+    this.setState({ observer }, () => {
+      this.state.observer.observe(this.intersectionEl)
+    })
+  }
+
+  destroyIntersectionObserver = () => {
+    this.state.observer.disconnect()
+  }
+
+  navigateTo = path => {
+    this.props.history.push(path)
+  }
+
+  render() {
+    const { pathname } = this.props.history.location
+    const { positionSticky } = this.state
+    return (
+      <>
+        <div
+          ref={this.setIntersectionRef}
+          className="bottom-navigation__observer"
+        />
+        <div
+          className="bottom-navigation"
+          style={{
+            position: positionSticky ? 'sticky' : 'fixed'
+          }}
+        >
+          {
+            navigationList.map(navigator => (
+              <div
+                key={navigator.path}
+                className="navigator"
+                onClick={() => this.navigateTo(navigator.path)}
+              >
+                <img src={
+                  navigator.active.includes(pathname)
+                    ? navigator.activeIcon
+                    : navigator.icon
+                } />
+                <small style={{
+                  color: navigator.active.includes(pathname)
+                  ? '#55C595'
+                  : '#9A9898'
+                }}>
+                  {navigator.text}
+                </small>
+              </div>
+            ))
+          }
+        </div>
+      </>
+    )
+  }
 }
 
-export default BottomNavigation
+export default withRouter(BottomNavigation)

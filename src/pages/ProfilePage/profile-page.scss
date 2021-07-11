@@ -1,0 +1,51 @@
+.profile-page {
+  h1 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2rem;
+    color: $green-2;
+  }
+
+  &__user {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+
+    > img {
+      width: 20%;
+      margin-right: 14px;
+    }
+
+    > div {
+      width: 80%;
+
+      > button {
+        width: 100%;
+        background-color: #fff;
+        padding: 4px 8px;
+        margin-top: 8px;
+        border: 1px solid #000;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.profile-navigation {
+  display: flex;
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+  
+  &__tab-item {
+    color: $green-2;
+    width: 25%;
+    text-align: center;
+    padding: 12px;
+    font-weight: bold;
+    text-decoration: none;
+
+    &.active {
+      border-bottom: 3px solid $green-2;
+    }
+  }
+}

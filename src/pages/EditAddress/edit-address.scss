@@ -1,0 +1,44 @@
+.edit-address {
+  &__form-contact,
+  &__form-address {
+    > * {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__form-contact {
+    border-bottom: 1px solid $grey-1;
+  }
+
+  &__form-address {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form-btn {
+    @include gc-btn-primary;
+    padding: 14px;
+    margin: 8px 0;
+  }
+
+  &__form-title {
+    font-size: 1.4rem;
+
+    &--green {
+      color: $green-2;
+      font-weight: 600;
+    }
+  }
+
+  &__form-primary {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    font-size: 1.3rem;
+
+    > div {
+      margin-left: 4px;
+      color: $grey-2;
+    }
+  }
+}

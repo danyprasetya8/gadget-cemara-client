@@ -1,0 +1,54 @@
+.login-page {
+  height: 100vh;
+
+  .logo {
+    text-align: center;
+
+    > img {
+      width: 10rem;
+      height: 10rem;
+    }
+
+    > div {
+      font-family: 'Comfortaa', sans-serif;
+      color: $green-3;
+      font-weight: 800;
+      font-size: 1.8rem;
+    }
+  }
+
+  .login-form {
+    &__forgot-pass {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: $green-2;
+      text-align: right;
+      text-decoration: none;
+    }
+
+    &__no-account {
+      font-size: 1.4rem;
+      text-align: center;
+      background: rgba($color: $green-1, $alpha: .3);
+      padding: 16px;
+
+      &--register {
+        text-decoration: none;
+        color: $green-2;
+      }
+    }
+
+    &__error-message {
+      font-size: 1.3rem;
+      text-align: center;
+      background-color: $red-1;
+      margin-top: 12px;
+    }
+
+    &__btn {
+      @include gc-btn-primary;
+      padding: 14px;
+      margin: 8px 0;
+    }
+  }
+}
