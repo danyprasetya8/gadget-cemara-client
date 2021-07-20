@@ -5,6 +5,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const logger = require('webpack-log')({ name: 'webpack-logger' })
 const isDevelopment = process.env.NODE_ENV === 'development' || process.env.NOMOCK !== 'true'
 
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer')
+
 const resolve = dir => {
   return path.join(__dirname, dir)
 }
@@ -46,7 +49,7 @@ module.exports = {
         use: ['url-loader']
       },
       {
-        test: /\.s(a|c)ss$/,
+        test: /\.(css|scss|sass)$/,
         loader: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
@@ -56,16 +59,18 @@ module.exports = {
               sourceMap: isDevelopment,
               additionalData: '@import "~@/assets/scss/main.scss";'
             }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [tailwindcss, autoprefixer]
+              }
+            }
           }
         ]
-      },
-      {
-        test: /\.css/,
-        loader: [
-          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader'
-        ]
-      },
+      }
     ]
   },
   plugins: [

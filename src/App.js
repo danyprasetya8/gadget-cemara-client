@@ -7,7 +7,7 @@ import * as actionCreators from '@/store/actions'
 import RouteGuard from '@/utils/route-guard'
 import routes from '@/config/routes/index'
 
-import '@/app.css'
+import '@/app.scss'
 class App extends Component {
   setDeviceType = () => {
     this.props.setIsMobile(isMobile())

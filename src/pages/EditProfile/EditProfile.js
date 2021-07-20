@@ -83,7 +83,7 @@ class EditProfile extends Component {
 
     return (
       <div className="edit-profile">
-        <div className="header p-16">
+        <div className="header font-comfortaa p-16">
           <Icon
             icon={faArrowLeft}
             onClick={() => this.props.history.push(page.profileOrder)}

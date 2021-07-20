@@ -124,7 +124,7 @@ class LoginPage extends Component {
       <div className="login-page">
         <section className="logo p-16">
           <img src={logo} />
-          <div>Gadget Cemara</div>
+          <div className="font-comfortaa">Gadget Cemara</div>
         </section>
 
         <FormInput

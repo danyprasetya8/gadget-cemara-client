@@ -162,7 +162,7 @@ class RegisterPage extends Component {
       <div className="register-page">
         <section className="logo p-16">
           <img src={logo} />
-          <div>Gadget Cemara</div>
+          <div className="font-comfortaa">Gadget Cemara</div>
         </section>
 
         <FormInput
