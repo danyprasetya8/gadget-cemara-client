@@ -19,7 +19,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     proxy: {
-      '/backend/': {
+      '/api/': {
         target: 'http://localhost:8081',
         changeOrigin: true
       }

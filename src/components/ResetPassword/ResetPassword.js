@@ -74,7 +74,8 @@ class ResetPassword extends Component {
     this.props.resetPassword({
       form: {
         email: this.props.email,
-        newPassword: this.state.form.password
+        newPassword: this.state.form.password,
+        token: this.props.otp
       },
       onSuccess: () => {
         toast(() => (

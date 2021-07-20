@@ -59,12 +59,12 @@ class RequestResetPassword extends Component {
     }
     this.setState({ error }, () => {
       if (!this.state.error.email.length) {
-        this.requestResetPasswordOtp()
+        this.requestResetPasswordOtp(false)
       }
     })
   }
 
-  requestResetPasswordOtp = (additionalForm = {}, successCb = null) => {
+  requestResetPasswordOtp = (resend, successCb = null) => {
     this.setState({
       isUserNameNotExist: false,
       isRequestingOtp: true
@@ -72,7 +72,7 @@ class RequestResetPassword extends Component {
     this.props.requestResetPasswordOtp({
       form: {
         ...this.state.form,
-        ...additionalForm
+        resend
       },
       onSuccess: successCb ? successCb : () => {
         this.setState({
@@ -81,7 +81,7 @@ class RequestResetPassword extends Component {
         })
       },
       onFail: err => {
-        if (err.response && err.response.data.includes('UsernameNotExist')) {
+        if (err.response.data?.errors?.user?.includes('UserMustExist')) {
           this.setState({ isUserNameNotExist: true })
         }
       }
@@ -93,7 +93,7 @@ class RequestResetPassword extends Component {
   }
 
   resendOtp = () => {
-    this.requestResetPasswordOtp({ resend: true }, () => this.setState({ isEnabledResendOtp: false, isRequestingOtp: false }))
+    this.requestResetPasswordOtp(true, () => this.setState({ isEnabledResendOtp: false, isRequestingOtp: false }))
   }
 
   toggleOtpModal = () => {
@@ -113,7 +113,7 @@ class RequestResetPassword extends Component {
         })
       },
       onFail: err => {
-        if (err.response && err.response.data.includes('InvalidToken')) {
+        if (err.response.data?.errors?.token?.includes('InvalidToken')) {
           this.setState({ isInvalidToken: true, otpInput: '' })
         }
       }
@@ -177,7 +177,11 @@ class RequestResetPassword extends Component {
           )
         }
         {
-          visibleResetPasswordForm && <ResetPassword email={this.state.form.email} />
+          visibleResetPasswordForm &&
+          <ResetPassword
+            email={this.state.form.email}
+            otp={this.state.otpInput}
+          />
         }
       </div>
     )

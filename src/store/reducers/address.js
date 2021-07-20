@@ -11,14 +11,14 @@ const reducer = (state = initialState, action) => {
       const { data = [] } = action.value
       return {
         ...state,
-        userAddress: data
+        userAddress: data.data
       }
     }
     case actionTypes.SET_ONE_USER_ADDRESS: {
       const { data = {} } = action.value
       return {
         ...state,
-        oneUserAddress: data
+        oneUserAddress: data.data
       }
     }
   } 

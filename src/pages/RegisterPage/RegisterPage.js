@@ -148,7 +148,7 @@ class RegisterPage extends Component {
       form,
       onSuccess: () => this.props.history.push(page.login),
       onFail: err => {
-        if (err.response.data.length && err.response.data.includes('UsernameAlreadyExist')) {
+        if (err.response?.data?.errors?.user?.includes('UserMustNotExist')) {
           this.setState({ isUserAlreadyExist: true })
         }
       }

@@ -17,10 +17,12 @@ class EditProfile extends Component {
     this.state = {
       form: {
         name: '',
-        email: ''
+        email: '',
+        phoneNumber: ''
       },
       error: {
-        name: ''
+        name: '',
+        phoneNumber: ''
       }
     }
   }
@@ -29,6 +31,7 @@ class EditProfile extends Component {
     this.setState({
       form: {
         name: this.props.currentUser.name,
+        phoneNumber: this.props.currentUser.phoneNumber,
         email: this.props.currentUser.email
       }
     })
@@ -38,25 +41,39 @@ class EditProfile extends Component {
     this.setState({
       form: {
         ...this.state.form,
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.validity.valid ? e.target.value : this.state.form[e.target.name]
       }
     })
   }
 
+  isValidForm = () => {
+    return Object.values(this.state.error).flat()
+      .every(str => !str.length)
+  }
+
   updateProfile = e => {
     e && e.preventDefault()
-    if (this.state.form.name.length) {
-      this.props.updateUser({
-        form: this.state.form,
-        onSuccess: () => this.props.getCurrentUser({
-          onSuccess: () => this.props.history.push(page.profileOrder)
-        })
-      })
-      return
+
+    const error = {
+      name: '',
+      phoneNumber: ''
     }
-    this.setState({
-      error: {
-        name: 'Harus diisi'
+
+    if (!this.state.form.name.length) {
+      error.name = 'Harus diisi'
+    }
+    if (!this.state.form.phoneNumber.length) {
+      error.phoneNumber = 'Harus diisi'
+    }
+
+    this.setState({ error }, () => {
+      if (this.isValidForm()) {
+        this.props.updateUser({
+          form: this.state.form,
+          onSuccess: () => this.props.getCurrentUser({
+            onSuccess: () => this.props.history.push(page.profileOrder)
+          })
+        })
       }
     })
   }
@@ -92,6 +109,17 @@ class EditProfile extends Component {
             value={form.name}
             onChange={this.handleFormInputChange}
             errorMessage={error.name}
+          />
+
+          <Input
+            title="Nomor telepon"
+            type="text"
+            placeholder="Tulis nomor telepon"
+            name="phoneNumber"
+            value={form.phoneNumber}
+            pattern={'[0-9]*'}
+            onChange={this.handleFormInputChange}
+            errorMessage={error.phoneNumber}
           />
 
           <Input

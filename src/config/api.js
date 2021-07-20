@@ -1,13 +1,13 @@
 export default {
-  login: '/backend/public/login',
-  user: '/backend/user',
-  changePasswordOtp: '/backend/user/change-password-otp',
-  changePassword: '/backend/user/_change-password',
-  resetPasswordOtp: '/backend/public/reset-password-otp',
-  resetPassword: '/backend/public/_reset-password',
-  verifyResetPasswordOtp: '/backend/public/_verify-reset-password-otp',
-  address: '/backend/address',
-  updatePrimaryAddress: '/backend/address/_setPrimary',
+  login: '/api/public/login',
+  user: '/api/user',
+  changePasswordOtp: '/api/password/change/otp',
+  changePassword: '/api/password/change',
+  resetPasswordOtp: '/api/public/password/reset/otp',
+  resetPassword: '/api/public/password/reset',
+  verifyResetPasswordOtp: '/api/public/password/reset/verify',
+  address: '/api/address',
+  updatePrimaryAddress: '/api/address/_setPrimary',
   oneAddress(id) {
     return `${this.address}/${id}`
   },

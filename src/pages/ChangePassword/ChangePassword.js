@@ -55,7 +55,7 @@ class ChangePassword extends Component {
         this.props.history.push(page.editProfile)
       },
       onFail: err => {
-        if (err.response && err.response.data.includes('InvalidToken')) {
+        if (err.response?.data?.errors?.token?.includes('InvalidToken')) {
           this.setState({ isInvalidToken: true, otpInput: '' })
         }
       }
@@ -110,7 +110,7 @@ class ChangePassword extends Component {
       },
       onSuccess: successCb ? successCb : () => this.setState({ visibleOtpModal: true, isRequestingOtp: false }),
       onFail: err => {
-        if (err.response && err.response.data && err.response.data.includes('PasswordStillSame')) {
+        if (err.response?.data?.errors?.password?.includes('PasswordMustValid')) {
           this.setState({ isStillSamePassword: true, isRequestingOtp: false })
           return
         }
@@ -180,7 +180,7 @@ class ChangePassword extends Component {
           {
             isStillSamePassword && (
               <div className="change-password__error-message p-8">
-                Kata sandi baru harus berbeda
+                Kata sandi yang anda masukkan salah
               </div>
             )
           }
