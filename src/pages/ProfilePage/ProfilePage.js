@@ -49,8 +49,8 @@ const Profile = props => {
   
   return (
     <div className="profile-page">
-      <section className="p-16">
-        <h1 className="font-comfortaa mb-18">Profil</h1>
+      <section className="p-4">
+        <h1>Profil</h1>
 
         <div className="profile-page__user">
           <img src={male} />

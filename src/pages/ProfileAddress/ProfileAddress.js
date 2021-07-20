@@ -69,7 +69,7 @@ class ProfileAddress extends Component {
                 key={address.id}
                 className="address-card"
               >
-                <div className="address-card__title mb-6">
+                <div className="address-card__title">
                   <div className="address-card__label">
                     {address.label}
                   </div>
@@ -81,12 +81,12 @@ class ProfileAddress extends Component {
                     )
                   }
                 </div>
-                <div className="address-card__receiver mb-6">
-                    {address.receiver}
-                  </div>
-                <div className="mb-4">{address.detail}</div>
-                <div>{address.district}, {address.regency}, {address.province}, {address.postalCode}</div>
-                <div className="mt-4">{address.phoneNumber}</div>
+                <div className="address-card__receiver">
+                  {address.receiver}
+                </div>
+                <div className="mb-1">{address.detail}</div>
+                <div className="mb-1">{address.district}, {address.regency}, {address.province}, {address.postalCode}</div>
+                <div className="mb-1">{address.phoneNumber}</div>
 
                 <div className="address-card__action-container">
                   <Link

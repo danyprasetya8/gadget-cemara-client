@@ -192,7 +192,7 @@ class CreateAddress extends Component {
           onBack={() => this.props.history.push(page.profileAddress)}
         />
         <form onSubmit={this.createAddress}>
-          <section className="create-address__form-contact p-16">
+          <section className="create-address__form-contact">
             <div className="create-address__form-title create-address__form-title--green">
               Kontak
             </div>
@@ -228,13 +228,13 @@ class CreateAddress extends Component {
             />
           </section>
 
-          <section className="create-address__form-address p-16">
+          <section className="create-address__form-address">
             <div className="create-address__form-title create-address__form-title--green">
               Alamat
             </div>
 
             <div className="create-address__form--province">
-              <div className="create-address__form-title mb-10">
+              <div className="create-address__form-title">
                 Provinsi
               </div>
               <Dropdown
@@ -247,7 +247,7 @@ class CreateAddress extends Component {
             </div>
 
             <div className="create-address__form--regency">
-              <div className="create-address__form-title mb-10">
+              <div className="create-address__form-title">
                 Kota
               </div>
               <Dropdown
@@ -260,7 +260,7 @@ class CreateAddress extends Component {
             </div>
 
             <div className="create-address__form--district">
-              <div className="create-address__form-title mb-10">
+              <div className="create-address__form-title">
                 Kecamatan
               </div>
               <Dropdown

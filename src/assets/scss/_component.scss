@@ -1,3 +1,14 @@
+@layer components {
+  .gc-btn-primary {
+    @apply w-full bg-green-500 text-white border-transparent rounded-lg cursor-pointer shadow-lg;
+  }
+}
+
+@layer components {
+  .gc-btn-secondary {
+    @apply w-full bg-white text-green-500 border border-green-500 rounded-lg cursor-pointer shadow-lg;
+  }
+}
 
 @mixin gc-btn-primary {
   width: 100%;

@@ -1,50 +1,33 @@
 .profile-page {
   h1 {
-    font-size: 2rem;
-    color: $green-2;
+    @apply text-xl text-green-500 font-comfortaa mb-4;
   }
 
   &__user {
-    font-size: 1.6rem;
-    display: flex;
-    align-items: center;
+    @apply text-base flex items-center;
 
     > img {
-      width: 20%;
-      margin-right: 14px;
+      @apply w-1/5 mr-4;
     }
 
     > div {
-      width: 80%;
+      @apply w-4/5;
 
       > button {
-        width: 100%;
-        background-color: #fff;
-        padding: 4px 8px;
-        margin-top: 8px;
-        border: 1px solid #000;
-        border-radius: 8px;
-        cursor: pointer;
+        @apply w-full bg-white text-sm py-1 px-2 mt-2 border border-black rounded-lg cursor-pointer;
       }
     }
   }
 }
 
 .profile-navigation {
-  display: flex;
-  font-size: 1.4rem;
-  margin-bottom: 14px;
+  @apply flex mb-4 text-base;
   
   &__tab-item {
-    color: $green-2;
-    width: 25%;
-    text-align: center;
-    padding: 12px;
-    font-weight: bold;
-    text-decoration: none;
+    @apply text-green-500 w-1/4 text-center py-2 px-3 font-bold no-underline;
 
     &.active {
-      border-bottom: 3px solid $green-2;
+      @apply border-b-2 border-green-500;
     }
   }
 }

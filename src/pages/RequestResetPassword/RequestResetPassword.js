@@ -130,10 +130,7 @@ class RequestResetPassword extends Component {
         />
         {
           !visibleResetPasswordForm && (
-            <form
-              onSubmit={this.requestResetPassword}
-              className="p-16"
-            >
+            <form onSubmit={this.requestResetPassword}>
               <Input
                 title="Email"
                 type="text"
@@ -151,7 +148,7 @@ class RequestResetPassword extends Component {
               </button>
               {
                 isUserNameNotExist && (
-                  <div className="request-reset-password__error-message p-8">
+                  <div className="request-reset-password__error-message">
                     Email tidak terdaftar
                   </div>
                 )

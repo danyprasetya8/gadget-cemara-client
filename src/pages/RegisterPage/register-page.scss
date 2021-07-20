@@ -1,45 +1,34 @@
 .register-page {
-  height: 100vh;
+  @apply h-screen;
 
   .logo {
-    text-align: center;
+    @apply text-center p-4;
 
     > img {
-      width: 10rem;
-      height: 10rem;
+      @apply w-32 h-32 mb-4 mx-auto;
     }
 
     > div {
-      color: $green-3;
-      font-weight: 800;
-      font-size: 1.8rem;
+      @apply text-green-500 font-bold text-lg font-comfortaa;
     }
   }
 
   .register-form {
     &__have-account {
-      font-size: 1.4rem;
-      text-align: center;
-      background: rgba($color: $green-1, $alpha: .3);
-      padding: 16px;
+      @apply text-base text-center bg-green-100 p-4;
 
       &--login {
-        text-decoration: none;
-        color: $green-2;
+        @apply no-underline text-green-500;
       }
     }
 
     &__error-message {
-      font-size: 1.3rem;
-      text-align: center;
-      background-color: $red-1;
-      margin-top: 12px;
+      @apply text-base text-center p-4 bg-red-200 mt-4;
     }
 
     &__btn {
       @include gc-btn-primary;
-      padding: 14px;
-      margin: 8px 0;
+      @apply py-3 my-2;
     }
   }
 }

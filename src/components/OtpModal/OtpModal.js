@@ -9,10 +9,10 @@ import './otp-modal.scss'
 const OtpModal = props => {
   return (
     <BottomSheet onClose={props.onClose}>
-      <div className="otp-modal__body p-8">
-        <h2 className="mb-6">Masukkan kode verifikasi</h2>
+      <div className="otp-modal__body">
+        <h2>Masukkan kode verifikasi</h2>
         <p>Kami telah mengirimkan kode verifikasi 4 digit ke {props.target} </p>
-        <p className="mtb-6">Demi keamananmu, jangan berikan kode tersebut kepada siapapun</p>
+        <p>Demi keamananmu, jangan berikan kode tersebut kepada siapapun</p>
         <OtpInput
           value={props.input}
           onChange={props.setInput}
@@ -20,20 +20,20 @@ const OtpModal = props => {
           isInputNum
           shouldAutoFocus
           separator={<span>&nbsp;</span>}
-          containerStyle="otp-modal__input-container mt-10"
+          containerStyle="otp-modal__input-container"
           inputStyle="otp-modal__input"
         />
         {
           props.isEnabledResendOtp ? (
             <a
-              className="mt-20 otp-modal__resend"
+              className="otp-modal__resend"
               onClick={props.resendOtp}
             >
               <strong>Kirim ulang kode OTP</strong>
             </a>
           ) : (
-            <strong className="mt-20 otp-modal__countdown-resend">
-              <div className="mb-6">Kirim ulang dalam</div>
+            <strong className="otp-modal__countdown-resend">
+              <div className="">Kirim ulang dalam</div>
               <Countdown
                 time={Math.floor(props.resendRemainingTime / 1000)}
                 onCountdownComplete={props.onCountdownComplete}
@@ -43,16 +43,14 @@ const OtpModal = props => {
         }
         {
           props.isInvalidToken && (
-            <div className="otp-modal__error-message p-8">
+            <div className="otp-modal__error-message">
               Kode OTP salah
             </div>
           )
         }
         <button
           onClick={props.verifyOnClick}
-          className={['mt-20',
-            props.input.length < 4 ? 'otp-modal__btn--disabled' : 'otp-modal__btn'
-          ].join(' ')}
+          className={props.input.length < 4 ? 'otp-modal__btn--disabled' : 'otp-modal__btn'}
         >
           Verifikasi
         </button>
