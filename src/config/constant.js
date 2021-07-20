@@ -25,7 +25,7 @@ export default {
     changePassword: '/change-password'
   },
   role: {
-    USER: 'ROLE_USER',
+    CUSTOMER: 'ROLE_CUSTOMER',
     ADMIN: 'ROLE_ADMIN'
   },
   app: {

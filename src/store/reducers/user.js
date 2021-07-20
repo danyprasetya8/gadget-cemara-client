@@ -11,14 +11,14 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOGIN: {
-      window.localStorage.setItem('token', action.value.headers.authorization)
+      window.localStorage.setItem('token', action.value.data.data.token)
       break
     }
     case actionTypes.SET_CURRENT_USER: {
       const { data = {} } = action.value
       return {
         ...state,
-        currentUser: data
+        currentUser: data.data
       }
     }
     case actionTypes.SET_GETTING_USER: {
@@ -31,7 +31,7 @@ const reducer = (state = initialState, action) => {
       const { data = {} } = action.value
       return {
         ...state,
-        otpResponse: data
+        otpResponse: data.data
       }
     }
   } 

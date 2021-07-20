@@ -5,32 +5,32 @@ import ProfileReview from '@/pages/ProfileReview/ProfileReview'
 import config from '@/config/constant'
 
 const page = config.page
-const { USER, ADMIN } = config.role
+const { CUSTOMER } = config.role
 
 export default [
   {
     name: 'ProfileOrder',
     path: page.profileOrder,
     component: ProfileOrder,
-    roles: [USER]
+    roles: [CUSTOMER]
   },
   {
     name: 'ProfileWishlist',
     path: page.profileWishlist,
     component: ProfileWishlist,
-    roles: [USER]
+    roles: [CUSTOMER]
   },
   {
     name: 'ProfileAddress',
     path: page.profileAddress,
     component: ProfileAddress,
     exact: true,
-    roles: [USER]
+    roles: [CUSTOMER]
   },
   {
     name: 'ProfileReview',
     path: page.profileReview,
     component: ProfileReview,
-    roles: [USER]
+    roles: [CUSTOMER]
   }
 ]

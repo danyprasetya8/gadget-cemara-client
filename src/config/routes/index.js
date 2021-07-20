@@ -12,7 +12,7 @@ import RequestResetPassword from '@/pages/RequestResetPassword/RequestResetPassw
 import config from '@/config/constant'
 
 const page = config.page
-const { USER, ADMIN } = config.role
+const { CUSTOMER } = config.role
 
 export default [
   {
@@ -32,13 +32,13 @@ export default [
     name: 'Notification',
     path: page.notification,
     component: Notification,
-    roles: [USER]
+    roles: [CUSTOMER]
   },
   {
     name: 'Profile',
     path: page.profile,
     component: ProfilePage,
-    roles: [USER],
+    roles: [CUSTOMER],
     redirect: page.profileOrder
   },
   {
@@ -57,25 +57,25 @@ export default [
     name: 'EditProfile',
     path: page.editProfile,
     component: EditProfile,
-    roles: [USER]
+    roles: [CUSTOMER]
   },
   {
     name: 'EditAddress',
     path: page.editAddress,
     component: EditAddress,
-    roles: [USER]
+    roles: [CUSTOMER]
   },
   {
     name: 'CreateAddress',
     path: page.createAddress,
     component: CreateAddress,
-    roles: [USER]
+    roles: [CUSTOMER]
   },
   {
     name: 'ChangePassword',
     path: page.changePassword,
     component: ChangePassword,
-    roles: [USER]
+    roles: [CUSTOMER]
   },
   {
     name: 'RequestResetPassword',
