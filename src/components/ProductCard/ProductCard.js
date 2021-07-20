@@ -13,17 +13,8 @@ export class ProductCard extends Component {
           <img src={dummyProduct} />
         </div>
 
-        <div className="product-card__info p-12 font-comfortaa">
-          <h3>{ellipsis('Product 1 very very long very very long ', 30)}</h3>
-
-          <div className="product-card__discount">
-            <div className="product-card__discount--label">
-              <strong>55% OFF</strong>
-            </div>
-            <div className="product-card__discount--bf-price">
-              <strong>{numberFormatter(6000000, 'Rp')}</strong>
-            </div>
-          </div>
+        <div className="product-card__info">
+          <div>{ellipsis('Product 1 very very long very very very long ', 40)}</div>
 
           <div className="product-card__price">
             <strong>{numberFormatter(2000000, 'Rp')}</strong>

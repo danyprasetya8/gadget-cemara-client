@@ -20,7 +20,7 @@ class Dashboard extends Component {
       <HeaderObserver>
         {
           shouldHeaderSticking => (
-            <div className="dashboard">
+            <div className="dashboard relative">
               <TheHeader shouldSticking={shouldHeaderSticking} />
               <CarouselProvider
                 naturalSlideWidth={100}
@@ -80,7 +80,7 @@ class Dashboard extends Component {
 
               <img
                 src={messageBuble}
-                className="message-buble"
+                className="fixed right-3 bottom-24"
               />
               <BottomNavigation />
             </div>

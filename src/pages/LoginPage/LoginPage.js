@@ -122,9 +122,9 @@ class LoginPage extends Component {
 
     return (
       <div className="login-page">
-        <section className="logo p-16">
+        <section className="logo">
           <img src={logo} />
-          <div className="font-comfortaa">Gadget Cemara</div>
+          <div>Gadget Cemara</div>
         </section>
 
         <FormInput
@@ -148,7 +148,7 @@ class LoginPage extends Component {
           </button>
           {
             isUnauthorized && (
-              <div className="login-form__error-message p-8">
+              <div className="login-form__error-message">
                 Email atau kata sandi Anda salah
               </div>
             )

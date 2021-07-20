@@ -10,7 +10,7 @@ const TheHeader = props => {
   const { shouldSticking } = props
   const classList = [
     'the-header',
-    'ptb-14',
+    'py-3',
     shouldSticking ? 'the-header--sticky' : ''
   ]
 

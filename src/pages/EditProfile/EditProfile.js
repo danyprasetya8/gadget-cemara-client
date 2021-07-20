@@ -83,7 +83,7 @@ class EditProfile extends Component {
 
     return (
       <div className="edit-profile">
-        <div className="header font-comfortaa p-16">
+        <div className="header">
           <Icon
             icon={faArrowLeft}
             onClick={() => this.props.history.push(page.profileOrder)}
@@ -97,10 +97,7 @@ class EditProfile extends Component {
           className="edit-profile__avatar"
         />
 
-        <form
-          onSubmit={this.updateProfile}
-          className="p-16"
-        >
+        <form onSubmit={this.updateProfile}>
           <Input
             title="Nama"
             type="text"
@@ -134,7 +131,7 @@ class EditProfile extends Component {
 
           <button
             onClick={() => this.props.history.push(page.changePassword)}
-            className="edit-profile__form-btn-password"
+            className="edit-profile__form-btn-password gc-btn-primary test"
           >
             Ubah kata sandi
           </button>

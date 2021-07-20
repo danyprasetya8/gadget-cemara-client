@@ -1,90 +1,53 @@
 .trusted-review {
-  border-radius: 20px;
-  box-shadow: 4px 4px 12px -11px rgba(0,0,0,0.31);
-  width: 330px;
-  border: 1px solid $grey-1;
+  @apply rounded-3xl shadow border border-gray-200 p-4 w-80;
 
   &__user {
-    display: flex;
-    align-items: center;
-    margin: 0 0 12px;
+    @apply flex items-center mb-4;
 
     > img {
-      margin-right: 12px;
+      @apply mr-3;
     }
   }
 
   &__user-info {
+    @apply text-sm;
+
     &--time {
-      margin: 4px 0 0;
-      color: $grey-2;
+      @apply mt-1 text-gray-400;
     }
   }
 
   &__product {
-    border-radius: 10px;
-    border: 1px solid $grey-1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @apply rounded-xl border border-gray-200 flex items-center p-2;
   }
 
   &__product-image {
+    @apply mr-4;
     width: 50px;
     height: 50px;
   }
 
   &__product-info {
-    display: grid;
-    grid-template-areas:
-      'name  rating'
-      'price price';
-    gap: 4px;
-
     &--name {
-      grid-area: name;
-      font-size: 1.2rem;
-      text-overflow: ellipsis;
+      @apply text-sm;
     }
 
     &--rating {
-      grid-area: rating;
-      color: $grey-2;
-      display: flex;
-      align-items: center;
-      margin: -5px 0 0;
+      @apply flex items-center text-gray-400 text-xs;
 
-      > span {
-        margin: 2px 0 0;
+      > div {
+        @apply ml-1;
       }
     }
 
     &--price {
-      color: $green-2;
-      font-size: 1.2rem;
-    }
-  }
-
-  &__product-discount {
-    &--label {
-      background: $red-1;
-      color: $red-2;
-      border-radius: 12px;
-      padding: 2px 6px;
-      white-space: nowrap;
-      margin: 0 0 4px;
-    }
-
-    &--bf-price {
-      color: $grey-2;
-      text-decoration: line-through;
+      @apply text-sm text-green-500;
     }
   }
 
   &__my-rating {
     p {
-      font-size: 1.3rem;
-      line-height: 1.8rem;
+      @apply text-sm;
     }
   }
 }

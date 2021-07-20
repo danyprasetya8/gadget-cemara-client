@@ -10,20 +10,20 @@ import './trusted-review.scss'
 class TrustedReview extends Component {
   render() {
     return (
-      <section className="trusted-review p-12">
+      <section className="trusted-review">
         <section className="trusted-review__user">
           <img src={male} />
           <div className="trusted-review__user-info">
-            <h3 className="trusted-review__user-info--name">
+            <div className="trusted-review__user-info--name">
               User 001
-            </h3>
+            </div>
             <div className="trusted-review__user-info--time">
               10 hours ago
             </div>
           </div>
         </section>
 
-        <section className="trusted-review__product p-8">
+        <section className="trusted-review__product">
           <img
             src={dummy}
             className="trusted-review__product-image"
@@ -31,7 +31,7 @@ class TrustedReview extends Component {
 
           <div className="trusted-review__product-info">
             <div className="trusted-review__product-info--name">
-              <strong>{ellipsis('Product Item 01 very very long', 15)}</strong>
+              <strong>{ellipsis('Product Item 01 very very long', 40)}</strong>
             </div>
             <div className="trusted-review__product-info--rating">
               <ReactStars
@@ -42,18 +42,9 @@ class TrustedReview extends Component {
                 edit={false}
                 activeColor="#ffd700"
               />
-              <span>(190)</span>
+              <div>(190)</div>
             </div>
             <div className="trusted-review__product-info--price">
-              <strong>{numberFormatter(6000000, 'Rp')}</strong>
-            </div>
-          </div>
-
-          <div className="trusted-review__product-discount">
-            <div className="trusted-review__product-discount--label">
-              <strong>55% OFF</strong>
-            </div>
-            <div className="trusted-review__product-discount--bf-price">
               <strong>{numberFormatter(6000000, 'Rp')}</strong>
             </div>
           </div>

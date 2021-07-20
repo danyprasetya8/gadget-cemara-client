@@ -1,70 +1,47 @@
 .profile-address {
-  display: flex;
-  flex-direction: column;
+  @apply flex flex-col;
 
   .address-card {
-    background: #fff;
-    padding: 12px;
-    font-size: 1.3rem;
-    margin-bottom: 8px;
-    border-bottom: 1px solid $grey-1;
+    @apply bg-white p-3 text-sm mb-2 border-b border-gray-200;
 
     &:first-child {
-      border-top: 1px solid $grey-1;
+      @apply border-t border-gray-200;
     }
 
     &__label {
-      text-transform: uppercase;
-      color: $grey-2;
+      @apply uppercase text-gray-400;
     }
   
     &__title {
-      display: flex;
-      align-items: center;
+      @apply flex items-center;
     }
   
     &__receiver {
-      font-weight: 800;
+      @apply font-bold my-2;
     }
   
     &__primary-label {
-      font-size: 1.1rem;
-      color: $green-2;
-      font-weight: 800;
-      background: rgba($color: $green-1, $alpha: .2);
-      display: flex;
-      text-align: center;
-      margin-left: 6px;
-      padding: 4px 6px;
-      border-radius: 12px;
+      @apply text-xs text-green-500 font-bold bg-green-100 flex text-center ml-1 px-2 py-1 rounded-xl;
     }
 
     &__action-container {
-      display: flex;
-      align-items: center;
-      margin-top: 12px;
-      text-decoration: none;
-      color: $grey-2;
+      @apply flex items-center mt-4 no-underline text-gray-400;
 
       .link {
-        text-decoration: none;
-        color: $grey-2;
+        @apply no-underline text-gray-400;
       }
 
       > * {
-        display: flex;
-        align-items: center;
-        margin-right: 20px;
-        white-space: nowrap;
+        @apply flex items-center mr-5 whitespace-nowrap;
       }
 
       .icon {
-        margin-right: 4px;
+        @apply mr-2;
       }
 
       &--switch {
         > div {
-          margin-left: 4px;
+          @apply ml-2;
         }
       }
     }
@@ -72,44 +49,35 @@
 
   > .add-address-btn {
     @include gc-btn-secondary;
-    width: 75%;
-    padding: 8px 14px;
-    margin-top: 12px;
-    align-self: center;
-    box-shadow: none;
+    @apply w-3/4 py-2 px-4 mt-4 self-center shadow-none;
   }
 
   .delete-address-modal {
-    font-size: 1.4rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @apply text-base flex flex-col items-center;
 
     > img {
-      width: 50%;
-      height: 50%;
+      @apply w-1/2 h-1/2;
     }
 
     > p {
-      margin: 12px 0;
+      @apply my-4;
     }
 
     > div {
-      display: flex;
-      width: 100%;
+      @apply flex w-full;
       
       > button {
-        width: 50%;
+        @apply w-1/2;
 
         &:first-child {
           @include gc-btn-secondary;
-          padding: 6px 12px;
+          @apply py-2 px-4 mr-6;
           margin-right: 18px;
         }
 
         &:nth-child(2) {
           @include gc-btn-primary;
-          padding: 6px 12px;
+          @apply py-2 px-4;
         }
       }
     }

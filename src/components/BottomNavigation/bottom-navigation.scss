@@ -1,13 +1,5 @@
 .bottom-navigation {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  border-top: 1px solid $grey-1;
-  display: flex;
-  justify-content: space-between;
-  padding: 14px 24px 24px;
+  @apply fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-between p-4;
 
   &__observer {
     height: 2px;
@@ -15,17 +7,15 @@
   }
 
   .navigator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @apply flex flex-col items-center;
     
     > img {
+      @apply mb-2;
       width: 24px;
-      margin: 0 0 6px;
     }
 
     > small {
-      font-size: 1.2rem;
+      @apply text-sm;
     }
   }
 }

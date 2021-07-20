@@ -1,44 +1,39 @@
 .create-address {
   &__form-contact,
   &__form-address {
+    @apply p-4;
+
     > * {
-      margin-bottom: 10px;
+      @apply mb-4;
     }
   }
 
   &__form-contact {
-    border-bottom: 1px solid $grey-1;
+    @apply border-b border-gray-200;
   }
 
   &__form-address {
-    display: flex;
-    flex-direction: column;
+    @apply flex flex-col;
   }
 
   &__form-btn {
     @include gc-btn-primary;
-    padding: 14px;
-    margin: 8px 0;
+    @apply py-3 my-2;
   }
 
   &__form-title {
-    font-size: 1.4rem;
+    @apply text-sm mb-2;
 
     &--green {
-      color: $green-2;
-      font-weight: 600;
+      @apply text-green-500 font-semibold;
     }
   }
 
   &__form-primary {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    font-size: 1.3rem;
+    @apply flex items-center ml-auto text-sm;
 
     > div {
-      margin-left: 4px;
-      color: $grey-2;
+      @apply ml-1 text-gray-400;
     }
   }
 }

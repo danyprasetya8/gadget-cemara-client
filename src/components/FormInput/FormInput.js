@@ -19,7 +19,7 @@ class FormInput extends Component {
 
     return (
       <form
-        className="form-input p-16"
+        className="form-input"
         onSubmit={onSubmit}
         onKeyUp={e => e.key === 'Enter' && e.preventDefault() && onSubmit()}
       >

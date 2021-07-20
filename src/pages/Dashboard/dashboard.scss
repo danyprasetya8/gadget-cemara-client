@@ -1,44 +1,30 @@
 .dashboard {
-  position: relative;
-
   .product-list-container,
   .best-seller-container,
   .trusted-reviews-container {
-    padding: 16px 0 0 16px;
+    @apply pt-3 pl-4;
 
     > h1 {
-      @apply font-comfortaa;
-      font-size: 20px;
-      margin: 0 0 14px;
+      @apply font-comfortaa text-xl mb-5;
     }
 
     .product-list,
     .best-seller,
     .trusted-reviews {
-      width: 100%;
-      overflow-x: scroll;
-      display: flex;
-      padding: 0 0 16px;
+      @apply flex overflow-x-scroll pb-6;
   
       &::-webkit-scrollbar {
-        display: none;
+        @apply hidden;
       }
   
       &__wrapper {
-        display: flex;
+        @apply flex;
   
         > * {
-          margin-right: 10px;
+          @apply mr-4;
         }
       }
     }
-  }
-
-  .message-buble {
-    position: fixed;
-    right: 10px;
-    bottom: 90px;
-    z-index: 2;
   }
   
   .dummy {

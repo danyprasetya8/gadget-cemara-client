@@ -90,10 +90,7 @@ class ResetPassword extends Component {
     const { form, error } = this.state
     return (
       <div className="reset-password">
-        <form
-          onSubmit={this.resetPassword}
-          className="p-16"
-        >
+        <form onSubmit={this.resetPassword}>
           <Input
             title="Kata sandi"
             type="password"

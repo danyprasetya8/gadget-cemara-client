@@ -146,10 +146,7 @@ class ChangePassword extends Component {
           onBack={() => this.props.history.push(page.editProfile)}
         />
 
-        <form
-          onSubmit={this.doChangePasswordOtp}
-          className="p-16"
-        >
+        <form onSubmit={this.doChangePasswordOtp}>
           <Input
             title="Kata sandi lama"
             type="password"
@@ -179,7 +176,7 @@ class ChangePassword extends Component {
 
           {
             isStillSamePassword && (
-              <div className="change-password__error-message p-8">
+              <div className="change-password__error-message">
                 Kata sandi yang anda masukkan salah
               </div>
             )

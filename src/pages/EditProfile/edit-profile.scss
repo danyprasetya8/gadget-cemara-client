@@ -1,45 +1,31 @@
 .edit-profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @apply flex flex-col items-center;
 
   > .header {
-    font-size: 1.6rem;
-    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.15);
-    margin-bottom: 8px;
-    color: $green-2;
-    position: sticky;
-    top: 0;
-    background: #fff;
-    width: 100%;
+    @apply font-comfortaa p-4 text-lg shadow-lg mb-3 text-green-500 sticky top-0 bg-white w-full;
 
     > * {
-      margin-right: 12px;
+      @apply mr-4;
     }
   }
 
   > form {
-    width: 100%;
+    @apply w-full p-4;
+
     > * {
-      margin-bottom: 10px;
+      @apply mb-3;
     }
   }
 
   &__form-btn {
-    @include gc-btn-primary;
-    padding: 14px;
-    margin: 8px 0;
+    @apply p-4 my-2 text-sm;
   }
 
   &__form-btn-password {
-    @include gc-btn-secondary;
-    padding: 14px;
-    margin: 8px 0;
+    @apply p-4 my-2 text-sm;
   }
 
   &__avatar {
-    text-align: center;
-    width: 25%;
-    margin-top: 10px;
+    @apply text-center w-1/4 mt-3;
   }
 }

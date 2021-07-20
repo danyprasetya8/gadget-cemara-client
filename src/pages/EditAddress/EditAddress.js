@@ -273,7 +273,7 @@ class EditAddress extends Component {
         />
 
         <form onSubmit={this.updateAddress}>
-          <section className="edit-address__form-contact p-16">
+          <section className="edit-address__form-contact">
             <div className="edit-address__form-title edit-address__form-title--green">
               Kontak
             </div>
@@ -309,13 +309,13 @@ class EditAddress extends Component {
             />
           </section>
 
-          <section className="edit-address__form-address p-16">
+          <section className="edit-address__form-address">
             <div className="edit-address__form-title edit-address__form-title--green">
               Alamat
             </div>
 
             <div className="edit-address__form--province">
-              <div className="edit-address__form-title mb-10">
+              <div className="edit-address__form-title">
                 Provinsi
               </div>
               <Dropdown
@@ -328,7 +328,7 @@ class EditAddress extends Component {
             </div>
 
             <div className="edit-address__form--regency">
-              <div className="edit-address__form-title mb-10">
+              <div className="edit-address__form-title">
                 Kota
               </div>
               <Dropdown
@@ -341,7 +341,7 @@ class EditAddress extends Component {
             </div>
 
             <div className="edit-address__form--district">
-              <div className="edit-address__form-title mb-10">
+              <div className="edit-address__form-title">
                 Kecamatan
               </div>
               <Dropdown

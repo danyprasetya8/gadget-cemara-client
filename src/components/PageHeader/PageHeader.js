@@ -7,14 +7,14 @@ import './page-header.scss'
 
 const PageHeader = props => {
   return (
-    <div className="page-header p-16 font-comfortaa">
-    <Icon
-      icon={faArrowLeft}
-      onClick={props.onBack}
-      color="#55C595"
-    />
-    <strong>{props.title}</strong>
-  </div>
+    <div className="page-header">
+      <Icon
+        icon={faArrowLeft}
+        onClick={props.onBack}
+        color="#55C595"
+      />
+      <strong>{props.title}</strong>
+    </div>
   )
 }
 
